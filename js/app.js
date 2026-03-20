@@ -29,6 +29,13 @@ const APP = {
   authMode: 'login' // 'login' or 'register'
 };
 
+// ============ AUTHENTICATION SETTINGS ============
+const ALLOWED_EMAILS = [
+  'panagiotis@tempomediagroup.gr',
+  'maria@tempomediagroup.gr',
+  // Add as many exact emails as you want here
+];
+
 // ============ LEVELS & CATEGORIES ============
 const STATIC_LEVELS = [
   { level: 1, name: 'Rookie', description: 'Google Ads fundamentals and basic concepts', icon: '🌱', xpRequired: 0, questionsToUnlock: 0, accuracyToUnlock: 0, color: '#4ade80' },
@@ -163,11 +170,14 @@ async function handleAuthSubmit() {
     return;
   }
 
-  // Domain restriction check
-  if (!email.endsWith('@tempomediagroup.gr')) {
-    errorEl.textContent = "Access restricted: Must use a @tempomediagroup.gr email address.";
-    errorEl.style.display = 'block';
-    return;
+  // Whitelist restriction check (only necessary for registration, not login)
+  if (APP.authMode === 'register') {
+    const isAllowed = ALLOWED_EMAILS.map(e => e.toLowerCase()).includes(email.toLowerCase());
+    if (!isAllowed) {
+      errorEl.textContent = "Access denied: Your exact email address is not on the authorized team list.";
+      errorEl.style.display = 'block';
+      return;
+    }
   }
 
   btn.disabled = true;
