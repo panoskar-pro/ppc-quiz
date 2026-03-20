@@ -31,8 +31,10 @@ const APP = {
 
 // ============ AUTHENTICATION SETTINGS ============
 const ALLOWED_EMAILS = [
-  'panagiotis@tempomediagroup.gr',
-  'maria@tempomediagroup.gr',
+  'panagiotis.kargidis@tempomediagroup.gr',
+  'charalampos.lianos@tempomediagroup.gr',
+  'christos.kotrotsos@tempomediagroup.gr',
+  'pepi.kakari@tempomediagroup.gr'
   // Add as many exact emails as you want here
 ];
 
@@ -82,7 +84,7 @@ auth.onAuthStateChanged(async (user) => {
     try {
       const docRef = db.collection('users').doc(user.uid);
       const docSnap = await docRef.get();
-      
+
       if (!docSnap.exists) {
         // Fallback if registered but doc wasn't created
         await createProfileDoc(user, user.email.split('@')[0]);
@@ -90,7 +92,7 @@ auth.onAuthStateChanged(async (user) => {
         APP.profile = docSnap.data();
         await docRef.update({ lastActive: firebase.firestore.FieldValue.serverTimestamp() });
       }
-      
+
       closeAuthModal();
       openDashboard();
     } catch (e) {
@@ -144,7 +146,12 @@ function toggleAuthMode() {
   document.getElementById('auth-toggle-text').textContent = isLogin ? 'Need an account?' : 'Already have an account?';
   document.getElementById('btn-auth-toggle').textContent = isLogin ? 'Register' : 'Sign In';
   document.getElementById('auth-name-group').style.display = isLogin ? 'none' : 'block';
+  document.getElementById('auth-verify-password-group').style.display = isLogin ? 'none' : 'block';
   document.getElementById('auth-error').style.display = 'none';
+
+  // Clear inputs on toggle
+  document.getElementById('auth-password').value = '';
+  document.getElementById('auth-verify-password').value = '';
 }
 
 function showAuthModal() {
@@ -158,6 +165,7 @@ function closeAuthModal() {
 async function handleAuthSubmit() {
   const email = document.getElementById('auth-email').value.trim();
   const password = document.getElementById('auth-password').value;
+  const verifyPassword = document.getElementById('auth-verify-password').value;
   const name = document.getElementById('auth-name').value.trim();
   const errorEl = document.getElementById('auth-error');
   const btn = document.getElementById('btn-auth-submit');
@@ -168,6 +176,20 @@ async function handleAuthSubmit() {
     errorEl.textContent = "Please fill in all fields.";
     errorEl.style.display = 'block';
     return;
+  }
+
+  if (APP.authMode === 'register') {
+    if (password !== verifyPassword) {
+      errorEl.textContent = "Passwords do not match.";
+      errorEl.style.display = 'block';
+      return;
+    }
+    
+    if (password.length < 6) {
+      errorEl.textContent = "Password must be at least 6 characters long.";
+      errorEl.style.display = 'block';
+      return;
+    }
   }
 
   // Whitelist restriction check (only necessary for registration, not login)
@@ -267,8 +289,8 @@ async function openDashboard() {
 async function loadLevels() {
   APP.levels = STATIC_LEVELS.map(lvl => ({
     ...lvl,
-    totalQuestions: typeof STATIC_QUESTIONS !== 'undefined' 
-      ? STATIC_QUESTIONS.questions.filter(q => q.level === lvl.level).length 
+    totalQuestions: typeof STATIC_QUESTIONS !== 'undefined'
+      ? STATIC_QUESTIONS.questions.filter(q => q.level === lvl.level).length
       : 0
   }));
 }
@@ -380,7 +402,7 @@ async function openLeaderboard() {
 async function loadLeaderboard(type) {
   const listEl = document.getElementById('leaderboard-list');
   const loadingEl = document.getElementById('leaderboard-loading');
-  
+
   listEl.innerHTML = '';
   loadingEl.style.display = 'block';
 
@@ -389,7 +411,7 @@ async function loadLeaderboard(type) {
 
   try {
     let html = '';
-    
+
     if (type === 'all') {
       const snapshot = await db.collection('users').orderBy('total_xp', 'desc').limit(10).get();
       let rank = 1;
@@ -405,7 +427,7 @@ async function loadLeaderboard(type) {
         .orderBy('xp_earned', 'desc')
         .limit(10)
         .get();
-        
+
       let rank = 1;
       snapshot.forEach(doc => {
         const data = doc.data();
@@ -415,7 +437,7 @@ async function loadLeaderboard(type) {
         html = '<div style="text-align:center; padding: 2rem; color: var(--text-muted);">No scores recorded this month yet!</div>';
       }
     }
-    
+
     loadingEl.style.display = 'none';
     listEl.innerHTML = html;
   } catch (e) {
@@ -431,7 +453,7 @@ function createLeaderboardRow(rank, name, xp, level) {
   else if (rank === 2) medal = '🥈';
   else if (rank === 3) medal = '🥉';
   else medal = `<span style="color:var(--text-muted)">#${rank}</span>`;
-  
+
   return `
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
       <div style="display: flex; align-items: center; gap: 1rem;">
@@ -702,7 +724,7 @@ function handlePoolQuestions() {
     btn.style.display = 'inline-flex';
     document.getElementById('modal-pooling-icon').textContent = '💡';
     document.getElementById('modal-pooling-title').textContent = 'Enjoy the Game!';
-    document.getElementById('modal-pooling-text').textContent = 
+    document.getElementById('modal-pooling-text').textContent =
       'You have 55 premium questions across 5 levels. Good luck mastering all the levels and earning the badges!';
   }, 1000);
 }
@@ -714,6 +736,24 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-close-auth').addEventListener('click', closeAuthModal);
   document.getElementById('btn-auth-toggle').addEventListener('click', (e) => { e.preventDefault(); toggleAuthMode(); });
   document.getElementById('btn-auth-submit').addEventListener('click', handleAuthSubmit);
+
+  // Toggle Password Visibility Logic
+  function toggleInputType(inputId) {
+    const input = document.getElementById(inputId);
+    if (input.type === 'password') {
+      input.type = 'text';
+    } else {
+      input.type = 'password';
+    }
+  }
+
+  document.getElementById('btn-toggle-password').addEventListener('click', () => {
+    toggleInputType('auth-password');
+  });
+
+  document.getElementById('btn-toggle-verify-password').addEventListener('click', () => {
+    toggleInputType('auth-verify-password');
+  });
 
   // Enter key on inputs
   document.getElementById('auth-password').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleAuthSubmit(); });
@@ -735,7 +775,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-leaderboard-back').addEventListener('click', openDashboard);
   document.getElementById('tab-all-time').addEventListener('click', () => loadLeaderboard('all'));
   document.getElementById('tab-monthly').addEventListener('click', () => loadLeaderboard('monthly'));
-  
+
   // Modals
   document.getElementById('btn-close-modal').addEventListener('click', () => {
     document.getElementById('modal-pooling').style.display = 'none';
