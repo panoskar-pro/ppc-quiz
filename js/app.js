@@ -449,15 +449,28 @@ function createLeaderboardRow(rank, name, xp, level) {
 // ============ QUIZ ENGINE ============
 async function startQuiz(selectedTopic = 'all') {
   try {
-    let pool = [];
-    if (!selectedTopic || selectedTopic === 'all') {
-      pool = [...STATIC_QUESTIONS.questions];
+    console.log("Starting quiz for topic:", selectedTopic);
+    let allQ = [];
+    if (typeof STATIC_QUESTIONS !== 'undefined' && Array.isArray(STATIC_QUESTIONS.questions)) {
+      allQ = STATIC_QUESTIONS.questions;
     } else {
-      pool = STATIC_QUESTIONS.questions.filter(q => q.topic === selectedTopic);
+      console.error("STATIC_QUESTIONS is missing or empty!");
+      showToast("Questions database loading error", "error");
+      return;
     }
 
+    let pool = [];
+    if (!selectedTopic || selectedTopic === 'all') {
+      pool = [...allQ];
+    } else {
+      const topicLower = selectedTopic.trim().toLowerCase();
+      pool = allQ.filter(q => q.topic && q.topic.trim().toLowerCase() === topicLower);
+    }
+
+    // Fallback to all questions if specific topic filter returned 0
     if (pool.length === 0) {
-      pool = [...STATIC_QUESTIONS.questions];
+      console.warn("Topic pool empty, falling back to all questions for topic:", selectedTopic);
+      pool = [...allQ];
     }
 
     let quizQuestions = pool.sort(() => Math.random() - 0.5).slice(0, 10);
@@ -467,9 +480,11 @@ async function startQuiz(selectedTopic = 'all') {
       return;
     }
 
+    const currentLevel = (APP.profile && APP.profile.currentLevel) ? APP.profile.currentLevel : 1;
+
     APP.currentQuiz = {
-      topic: selectedTopic,
-      level: APP.profile.currentLevel,
+      topic: selectedTopic || 'all',
+      level: currentLevel,
       questions: quizQuestions,
       currentIndex: 0,
       answers: [],
@@ -481,7 +496,8 @@ async function startQuiz(selectedTopic = 'all') {
     showScreen('quiz');
     renderQuestion();
   } catch (e) {
-    showToast('Failed to load questions.', 'error');
+    console.error("Error in startQuiz:", e);
+    showToast('Failed to load questions: ' + e.message, 'error');
   }
 }
 
