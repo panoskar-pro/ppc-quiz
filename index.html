@@ -122,19 +122,67 @@
     </div>
 
     <!-- Quick Match -->
-    <div style="text-align: center; margin: 3rem 0;">
-      <button id="btn-play-match" class="btn btn-primary btn-lg pulse-btn" style="font-size: 1.5rem; padding: 1.5rem 3rem;">
-        <span class="btn-icon">⚡</span> Start Quick Match
-      </button>
-      <p style="color: var(--text-muted); margin-top: 1rem;">Pulling 10 random questions from the master pool.</p>
-    </div>
+        <!-- Topic / Category Selection -->
+    <div class="topics-section">
+      <div class="section-header-row">
+        <h2 class="section-title" style="margin-bottom: 0.25rem;">Επιλογή Ενότητας Εκπαίδευσης</h2>
+        <p class="section-subtitle" style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">Επιλέξτε συγκεκριμένη θεματική ενότητα ή παίξτε ένα μικτό quiz 10 ερωτήσεων</p>
+      </div>
+      
+      <div class="topics-grid" id="topics-grid">
+        <div class="topic-card glass-card" data-topic="Invoicing">
+          <div class="topic-card-glow"></div>
+          <div class="topic-icon">🧾</div>
+          <div class="topic-info">
+            <h3 class="topic-title">Invoicing & Διαδικασίες</h3>
+            <p class="topic-desc">Τιμολόγηση, PO, εγκρίσεις, billing cycles & media spend reconciliation</p>
+            <div class="topic-meta">
+              <span class="topic-count" id="count-invoicing">8 Ερωτήσεις</span>
+              <span class="topic-action">Έναρξη Module →</span>
+            </div>
+          </div>
+        </div>
 
-    <!-- Badges -->
-    <h2 class="section-title">Badges</h2>
-    <div class="badges-grid" id="badges-grid">
-      <!-- Populated by JS -->
+        <div class="topic-card glass-card" data-topic="Google Ads">
+          <div class="topic-card-glow"></div>
+          <div class="topic-icon">🎯</div>
+          <div class="topic-info">
+            <h3 class="topic-title">Google Ads (PPC)</h3>
+            <p class="topic-desc">Search, Shopping, Performance Max, Smart Bidding & Quality Score</p>
+            <div class="topic-meta">
+              <span class="topic-count" id="count-google">55 Ερωτήσεις</span>
+              <span class="topic-action">Έναρξη Module →</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="topic-card glass-card" data-topic="Meta Ads">
+          <div class="topic-card-glow"></div>
+          <div class="topic-icon">📱</div>
+          <div class="topic-info">
+            <h3 class="topic-title">Meta Ads</h3>
+            <p class="topic-desc">Facebook & Instagram campaigns, Conversions API, CBO & Placements</p>
+            <div class="topic-meta">
+              <span class="topic-count" id="count-meta">5 Ερωτήσεις</span>
+              <span class="topic-action">Έναρξη Module →</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="topic-card glass-card topic-card-all" data-topic="all">
+          <div class="topic-card-glow"></div>
+          <div class="topic-icon">⚡</div>
+          <div class="topic-info">
+            <h3 class="topic-title">All Topics (Mix)</h3>
+            <p class="topic-desc">Τυχαία επιλογή 10 ερωτήσεων από όλες τις διαθέσιμες θεματικές ενότητες</p>
+            <div class="topic-meta">
+              <span class="topic-count" id="count-all">68 Ερωτήσεις</span>
+              <span class="topic-action">Quick Match →</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
   <!-- ============ QUIZ SCREEN ============ -->
   <div id="screen-quiz" class="screen">

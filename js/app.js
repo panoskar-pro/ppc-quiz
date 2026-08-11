@@ -311,6 +311,24 @@ function renderDashboard() {
 
   p.currentLevel = Math.floor(p.xp / 1000) + 1; // Sync infinite level with 1000 XP scale
 
+  // Update Topic Counts dynamically
+  if (typeof STATIC_QUESTIONS !== 'undefined' && STATIC_QUESTIONS.questions) {
+    const invCount = STATIC_QUESTIONS.questions.filter(q => q.topic === 'Invoicing').length;
+    const gCount = STATIC_QUESTIONS.questions.filter(q => q.topic === 'Google Ads').length;
+    const mCount = STATIC_QUESTIONS.questions.filter(q => q.topic === 'Meta Ads').length;
+    const allCount = STATIC_QUESTIONS.questions.length;
+
+    const elInv = document.getElementById('count-invoicing');
+    const elG = document.getElementById('count-google');
+    const elM = document.getElementById('count-meta');
+    const elAll = document.getElementById('count-all');
+
+    if (elInv) elInv.textContent = `${invCount} Ερωτήσεις`;
+    if (elG) elG.textContent = `${gCount} Ερωτήσεις`;
+    if (elM) elM.textContent = `${mCount} Ερωτήσεις`;
+    if (elAll) elAll.textContent = `${allCount} Ερωτήσεις`;
+  }
+
   document.getElementById('dash-avatar').textContent = getInitials(p.name);
   document.getElementById('dash-name').textContent = p.name;
   
@@ -429,19 +447,30 @@ function createLeaderboardRow(rank, name, xp, level) {
 }
 
 // ============ QUIZ ENGINE ============
-async function startQuiz() {
+async function startQuiz(selectedTopic = 'all') {
   try {
-    let levelQuestions = [...STATIC_QUESTIONS.questions];
-    levelQuestions = levelQuestions.sort(() => Math.random() - 0.5).slice(0, 10);
+    let pool = [];
+    if (!selectedTopic || selectedTopic === 'all') {
+      pool = [...STATIC_QUESTIONS.questions];
+    } else {
+      pool = STATIC_QUESTIONS.questions.filter(q => q.topic === selectedTopic);
+    }
 
-    if (levelQuestions.length === 0) {
+    if (pool.length === 0) {
+      pool = [...STATIC_QUESTIONS.questions];
+    }
+
+    let quizQuestions = pool.sort(() => Math.random() - 0.5).slice(0, 10);
+
+    if (quizQuestions.length === 0) {
       showToast('No questions available!', 'error');
       return;
     }
 
     APP.currentQuiz = {
+      topic: selectedTopic,
       level: APP.profile.currentLevel,
-      questions: levelQuestions,
+      questions: quizQuestions,
       currentIndex: 0,
       answers: [],
       streak: 0,
@@ -469,7 +498,8 @@ function renderQuestion() {
 
   const milestone = getMilestoneForLevel(quiz.level);
   document.getElementById('quiz-level-label').textContent = `Level ${quiz.level} — ${milestone.name}`;
-  document.getElementById('quiz-category').textContent = q.category;
+  const topicIcon = q.topic === 'Invoicing' ? '🧾 ' : (q.topic === 'Meta Ads' ? '📱 ' : '🎯 ');
+  document.getElementById('quiz-category').textContent = `${topicIcon}${q.topic || 'Google Ads'} • ${q.category || ''}`;
   document.getElementById('question-type-badge').textContent = q.type === 'true_false' ? 'True / False' : 'Multiple Choice';
   document.getElementById('question-text').textContent = q.question;
 
@@ -745,8 +775,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Enter key on inputs
   document.getElementById('auth-password').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleAuthSubmit(); });
 
-  // Dashboard
-  document.getElementById('btn-play-match')?.addEventListener('click', () => startQuiz());
+  // Dashboard Topic Cards & Controls
+  document.querySelectorAll('.topic-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const topic = card.getAttribute('data-topic') || 'all';
+      startQuiz(topic);
+    });
+  });
+  document.getElementById('btn-play-match')?.addEventListener('click', () => startQuiz('all'));
   document.getElementById('btn-pool-questions')?.addEventListener('click', handlePoolQuestions);
   document.getElementById('btn-logout').addEventListener('click', handleLogout);
   document.getElementById('btn-leaderboard').addEventListener('click', openLeaderboard);
@@ -756,7 +792,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-next-question').addEventListener('click', handleNextQuestion);
 
   // Results
-  document.getElementById('btn-retry').addEventListener('click', () => { if (APP.currentQuiz) startQuiz(); });
+  document.getElementById('btn-retry').addEventListener('click', () => { 
+    if (APP.currentQuiz) startQuiz(APP.currentQuiz.topic || 'all'); 
+  });
   document.getElementById('btn-back-dashboard').addEventListener('click', openDashboard);
 
   // Leaderboard Modals

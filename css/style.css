@@ -1142,3 +1142,115 @@ body {
     justify-content: center;
   }
 }
+
+
+/* ---------- Training Topics Grid ---------- */
+.topics-section {
+  margin: var(--space-xl) 0;
+}
+
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
+}
+
+.topic-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all var(--transition-base);
+}
+
+.topic-card:hover {
+  transform: translateY(-4px);
+  background: var(--bg-card-hover);
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 12px 30px rgba(59, 130, 246, 0.15);
+}
+
+.topic-card-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  opacity: 0.7;
+  transition: opacity var(--transition-base);
+}
+
+.topic-card:hover .topic-card-glow {
+  opacity: 1;
+  height: 4px;
+}
+
+.topic-card[data-topic="Invoicing"] .topic-card-glow {
+  background: var(--gradient-green);
+}
+
+.topic-card[data-topic="Meta Ads"] .topic-card-glow {
+  background: var(--gradient-gold);
+}
+
+.topic-card-all .topic-card-glow {
+  background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+}
+
+.topic-icon {
+  font-size: 2.2rem;
+  margin-bottom: var(--space-sm);
+  display: inline-block;
+  transition: transform var(--transition-base);
+}
+
+.topic-card:hover .topic-icon {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.topic-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.topic-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: var(--space-md);
+  flex-grow: 1;
+}
+
+.topic-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-sm);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.85rem;
+}
+
+.topic-count {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.topic-action {
+  color: var(--accent-blue);
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.topic-card:hover .topic-action {
+  color: var(--accent-cyan);
+}
