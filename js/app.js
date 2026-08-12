@@ -44,24 +44,17 @@ const ALLOWED_EMAILS = [
   'Vicky.Angelidou@tempomediagroup.gr',
   'Nikolas.Sofianos@tempomediagroup.gr',
   'Stratis.Nikolaou@tempomediagroup.gr'
+  // Add as many exact emails as you want here
 ];
 
-// ============ MILESTONE TITLES ============
-const MILESTONE_TITLES = [
-  { level: 1, name: 'Rookie', description: 'Google Ads fundamentals and basic concepts', icon: '🌱', color: '#4ade80' },
-  { level: 5, name: 'Specialist', description: 'Campaign types, bidding strategies, and keyword match types', icon: '⚡', color: '#60a5fa' },
-  { level: 10, name: 'Strategist', description: 'Optimization, Quality Score, ad extensions, and audiences', icon: '🎯', color: '#a78bfa' },
-  { level: 20, name: 'Expert', description: 'Advanced bidding, attribution, scripts, and automation', icon: '🔥', color: '#f97316' },
-  { level: 35, name: 'Master', description: 'Complex scenarios, cross-platform strategy, and measurement', icon: '👑', color: '#eab308' },
+// ============ LEVELS & CATEGORIES ============
+const STATIC_LEVELS = [
+  { level: 1, name: 'Rookie', description: 'Google Ads fundamentals and basic concepts', icon: '🌱', xpRequired: 0, questionsToUnlock: 0, accuracyToUnlock: 0, color: '#4ade80' },
+  { level: 2, name: 'Specialist', description: 'Campaign types, bidding strategies, and keyword match types', icon: '⚡', xpRequired: 100, questionsToUnlock: 8, accuracyToUnlock: 70, color: '#60a5fa' },
+  { level: 3, name: 'Strategist', description: 'Optimization, Quality Score, ad extensions, and audiences', icon: '🎯', xpRequired: 300, questionsToUnlock: 8, accuracyToUnlock: 75, color: '#a78bfa' },
+  { level: 4, name: 'Expert', description: 'Advanced bidding, attribution, scripts, and automation', icon: '🔥', xpRequired: 600, questionsToUnlock: 8, accuracyToUnlock: 80, color: '#f97316' },
+  { level: 5, name: 'Master', description: 'Complex scenarios, cross-platform strategy, and measurement', icon: '👑', xpRequired: 1000, questionsToUnlock: 8, accuracyToUnlock: 85, color: '#eab308' },
 ];
-
-function getMilestoneForLevel(level) {
-  let highest = MILESTONE_TITLES[0];
-  for (let m of MILESTONE_TITLES) {
-    if (level >= m.level) highest = m;
-  }
-  return highest;
-}
 
 const CATEGORY_LINKS = {
   'Basics': 'https://support.google.com/google-ads/answer/6146252',
@@ -81,21 +74,20 @@ const CATEGORY_LINKS = {
 };
 
 const BADGES = [
-  { id: 'first_quiz', name: 'First Steps', icon: '🎓', desc: 'Complete your first quiz', check: (p) => Boolean(p && p.stats && p.stats.totalAnswered >= 1) },
-  { id: 'perfect_10', name: 'Perfect 10', icon: '💯', desc: 'Get 10/10 on any quiz', check: (p) => Boolean(p && Array.isArray(p.badges) && p.badges.includes('perfect_10')) },
-  { id: 'streak_5', name: 'On Fire', icon: '🔥', desc: 'Get a 5-answer streak', check: (p) => Boolean(p && p.stats && p.stats.bestStreak >= 5) },
-  { id: 'streak_10', name: 'Unstoppable', icon: '⚡', desc: 'Get a 10-answer streak', check: (p) => Boolean(p && p.stats && p.stats.bestStreak >= 10) },
-  { id: 'level_2', name: 'Specialist', icon: '📘', desc: 'Reach Level 2', check: (p) => Boolean(p && p.currentLevel >= 2) },
-  { id: 'level_3', name: 'Strategist', icon: '🎯', desc: 'Reach Level 3', check: (p) => Boolean(p && p.currentLevel >= 3) },
-  { id: 'level_4', name: 'Expert', icon: '🔥', desc: 'Reach Level 4', check: (p) => Boolean(p && p.currentLevel >= 4) },
-  { id: 'level_5', name: 'Master', icon: '👑', desc: 'Reach Level 5', check: (p) => Boolean(p && p.currentLevel >= 5) },
-  { id: 'fifty_qs', name: 'Scholar', icon: '📚', desc: 'Answer 50 questions', check: (p) => Boolean(p && p.stats && p.stats.totalAnswered >= 50) },
-  { id: 'hundred_qs', name: 'Veteran', icon: '🏅', desc: 'Answer 100 questions', check: (p) => Boolean(p && p.stats && p.stats.totalAnswered >= 100) },
+  { id: 'first_quiz', name: 'First Steps', icon: '🎓', desc: 'Complete your first quiz', check: (p) => p.stats.totalAnswered >= 1 },
+  { id: 'perfect_10', name: 'Perfect 10', icon: '💯', desc: 'Get 10/10 on any quiz', check: (p) => p.badges.includes('perfect_10') },
+  { id: 'streak_5', name: 'On Fire', icon: '🔥', desc: 'Get a 5-answer streak', check: (p) => p.stats.bestStreak >= 5 },
+  { id: 'streak_10', name: 'Unstoppable', icon: '⚡', desc: 'Get a 10-answer streak', check: (p) => p.stats.bestStreak >= 10 },
+  { id: 'level_2', name: 'Specialist', icon: '📘', desc: 'Reach Level 2', check: (p) => p.currentLevel >= 2 },
+  { id: 'level_3', name: 'Strategist', icon: '🎯', desc: 'Reach Level 3', check: (p) => p.currentLevel >= 3 },
+  { id: 'level_4', name: 'Expert', icon: '🔥', desc: 'Reach Level 4', check: (p) => p.currentLevel >= 4 },
+  { id: 'level_5', name: 'Master', icon: '👑', desc: 'Reach Level 5', check: (p) => p.currentLevel >= 5 },
+  { id: 'fifty_qs', name: 'Scholar', icon: '📚', desc: 'Answer 50 questions', check: (p) => p.stats.totalAnswered >= 50 },
+  { id: 'hundred_qs', name: 'Veteran', icon: '🏅', desc: 'Answer 100 questions', check: (p) => p.stats.totalAnswered >= 100 },
 ];
 
 // ============ AUTHENTICATION & PROFILE ============
 auth.onAuthStateChanged(async (user) => {
-  console.log("onAuthStateChanged triggered:", user ? user.email : "No user");
   if (user) {
     APP.user = user;
     try {
@@ -103,38 +95,18 @@ auth.onAuthStateChanged(async (user) => {
       const docSnap = await docRef.get();
 
       if (!docSnap.exists) {
-        // Fallback if registered but document wasn't created yet
-        await createProfileDoc(user, user.displayName || user.email.split('@')[0]);
+        // Fallback if registered but doc wasn't created
+        await createProfileDoc(user, user.email.split('@')[0]);
       } else {
         APP.profile = docSnap.data();
-        if (!APP.profile) APP.profile = {};
-        if (!APP.profile.stats) APP.profile.stats = { totalAnswered: 0, totalCorrect: 0, bestStreak: 0, quizzesCompleted: 0, levelScores: {} };
-        if (!Array.isArray(APP.profile.badges)) APP.profile.badges = [];
-        if (typeof APP.profile.xp !== 'number') APP.profile.xp = 0;
-        if (!APP.profile.name) APP.profile.name = user.displayName || user.email.split('@')[0];
-        
-        try {
-          await docRef.update({ lastActive: firebase.firestore.FieldValue.serverTimestamp() });
-        } catch(updateErr) {
-          console.warn("Could not update lastActive timestamp:", updateErr);
-        }
+        await docRef.update({ lastActive: firebase.firestore.FieldValue.serverTimestamp() });
       }
 
       closeAuthModal();
       openDashboard();
     } catch (e) {
       console.error("Error fetching user data:", e);
-      const errorEl = document.getElementById('auth-error');
-      if (errorEl) {
-        errorEl.textContent = "Database error: " + e.message;
-        errorEl.style.display = 'block';
-      }
-      const btn = document.getElementById('btn-auth-submit');
-      if (btn) {
-        btn.disabled = false;
-        btn.textContent = APP.authMode === 'login' ? 'Sign In' : 'Register';
-      }
-      showToast("Error loading profile: " + e.message, "error");
+      showToast("Error loading profile", "error");
     }
   } else {
     APP.user = null;
@@ -210,71 +182,55 @@ async function handleAuthSubmit() {
   errorEl.style.display = 'none';
 
   if (!email || !password) {
-    errorEl.textContent = "Συμπληρώστε όλα τα πεδία.";
+    errorEl.textContent = "Please fill in all fields.";
     errorEl.style.display = 'block';
     return;
   }
 
   if (APP.authMode === 'register') {
     if (password !== verifyPassword) {
-      errorEl.textContent = "Οι κωδικοί δεν ταιριάζουν.";
+      errorEl.textContent = "Passwords do not match.";
       errorEl.style.display = 'block';
       return;
     }
 
     if (password.length < 6) {
-      errorEl.textContent = "Ο κωδικός πρέπει να έχει τουλάχιστον 6 χαρακτήρες.";
+      errorEl.textContent = "Password must be at least 6 characters long.";
       errorEl.style.display = 'block';
       return;
     }
   }
 
-  // Whitelist restriction check (for registration)
+  // Whitelist restriction check (only necessary for registration, not login)
   if (APP.authMode === 'register') {
-    const cleanEmail = email.toLowerCase().trim();
-    const isAllowed = ALLOWED_EMAILS.map(e => e.toLowerCase().trim()).includes(cleanEmail);
+    const isAllowed = ALLOWED_EMAILS.map(e => e.toLowerCase()).includes(email.toLowerCase());
     if (!isAllowed) {
-      errorEl.textContent = "Δεν επιτρέπεται η εγγραφή: Το email σας δεν βρίσκεται στη λίστα εγκεκριμένων χρηστών.";
+      errorEl.textContent = "Access denied: Your exact email address is not on the authorized team list.";
       errorEl.style.display = 'block';
       return;
     }
   }
 
   btn.disabled = true;
-  btn.textContent = "Σύνδεση...";
+  btn.textContent = "Processing...";
 
   try {
     if (APP.authMode === 'login') {
       await auth.signInWithEmailAndPassword(email, password);
     } else {
       if (!name) {
-        throw new Error("Παρακαλώ συμπληρώστε όνομα εμφάνισης.");
+        throw new Error("Display name is required for registration.");
       }
       const userCred = await auth.createUserWithEmailAndPassword(email, password);
       await createProfileDoc(userCred.user, name);
     }
     // Success is handled by onAuthStateChanged
   } catch (error) {
-    console.error("Auth error:", error);
-    let msg = error.message;
-    if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
-      msg = "Λάθος email ή κωδικός πρόσβασης. Αν δεν έχετε λογαριασμό, πατήστε κάτω στο Register.";
-    } else if (error.code === 'auth/email-already-in-use') {
-      msg = "Υπάρχει ήδη λογαριασμός με αυτό το email. Πατήστε Sign In.";
-    }
-    errorEl.textContent = msg;
+    errorEl.textContent = error.message;
     errorEl.style.display = 'block';
     btn.disabled = false;
     btn.textContent = APP.authMode === 'login' ? 'Sign In' : 'Register';
   }
-}
-
-
-,
-    }
-  };
-  openDashboard();
-  showToast('Καλωσήρθατε! Παίζετε σε λειτουργία εκπαίδευσης.', 'info');
 }
 
 function handleLogout() {
@@ -288,17 +244,23 @@ function getInitials(name) {
 }
 
 function getLevelXPThreshold(level) {
-  return 1000; // 1000 XP required per level in the new high-score progression
+  return level * 100;
 }
 
 function getTotalXPForLevel(level) {
-  return (level - 1) * 1000;
+  let total = 0;
+  for (let i = 1; i < level; i++) {
+    total += getLevelXPThreshold(i);
+  }
+  return total;
 }
 
 function getXPProgress() {
   const p = APP.profile;
-  const xpInCurrentLevel = p.xp % 1000;
-  return { current: xpInCurrentLevel, threshold: 1000 };
+  const totalXPForCurrent = getTotalXPForLevel(p.currentLevel);
+  const xpInCurrentLevel = p.xp - totalXPForCurrent;
+  const threshold = getLevelXPThreshold(p.currentLevel);
+  return { current: Math.max(0, xpInCurrentLevel), threshold };
 }
 
 function showScreen(screenName) {
@@ -334,10 +296,10 @@ async function openDashboard() {
 }
 
 async function loadLevels() {
-  APP.levels = MILESTONE_TITLES.map(lvl => ({
+  APP.levels = STATIC_LEVELS.map(lvl => ({
     ...lvl,
     totalQuestions: typeof STATIC_QUESTIONS !== 'undefined'
-      ? STATIC_QUESTIONS.questions.length
+      ? STATIC_QUESTIONS.questions.filter(q => q.level === lvl.level).length
       : 0
   }));
 }
@@ -346,31 +308,12 @@ function renderDashboard() {
   const p = APP.profile;
   if (!p) return;
 
-  p.currentLevel = Math.floor(p.xp / 1000) + 1; // Sync infinite level with 1000 XP scale
-
-  // Update Topic Counts dynamically
-  if (typeof STATIC_QUESTIONS !== 'undefined' && STATIC_QUESTIONS.questions) {
-    const invCount = STATIC_QUESTIONS.questions.filter(q => q.topic === 'Invoicing').length;
-    const gCount = STATIC_QUESTIONS.questions.filter(q => q.topic === 'Google Ads').length;
-    const mCount = STATIC_QUESTIONS.questions.filter(q => q.topic === 'Meta Ads').length;
-    const allCount = STATIC_QUESTIONS.questions.length;
-
-    const elInv = document.getElementById('count-invoicing');
-    const elG = document.getElementById('count-google');
-    const elM = document.getElementById('count-meta');
-    const elAll = document.getElementById('count-all');
-
-    if (elInv) elInv.textContent = `${invCount} Ερωτήσεις`;
-    if (elG) elG.textContent = `${gCount} Ερωτήσεις`;
-    if (elM) elM.textContent = `${mCount} Ερωτήσεις`;
-    if (elAll) elAll.textContent = `${allCount} Ερωτήσεις`;
-  }
-
   document.getElementById('dash-avatar').textContent = getInitials(p.name);
   document.getElementById('dash-name').textContent = p.name;
-  
-  const milestone = getMilestoneForLevel(p.currentLevel);
-  document.getElementById('dash-title').textContent = `${milestone.icon} ${milestone.name}`;
+  const levelInfo = APP.levels.find((l) => l.level === p.currentLevel);
+  document.getElementById('dash-title').textContent = levelInfo
+    ? `${levelInfo.icon} ${levelInfo.name}`
+    : `Level ${p.currentLevel}`;
 
   const xpProg = getXPProgress();
   document.getElementById('dash-level-badge').textContent = `Level ${p.currentLevel}`;
@@ -388,7 +331,58 @@ function renderDashboard() {
   document.getElementById('stat-streak').textContent = p.stats.bestStreak;
   document.getElementById('stat-xp').textContent = p.xp;
 
+  renderLevelGrid();
   renderBadges();
+}
+
+function renderLevelGrid() {
+  const grid = document.getElementById('level-grid');
+  grid.innerHTML = '';
+
+  APP.levels.forEach((level) => {
+    const isUnlocked = isLevelUnlocked(level.level);
+    const card = document.createElement('div');
+    card.className = `level-card glass-card ${isUnlocked ? '' : 'level-locked'}`;
+    card.style.setProperty('--level-color', level.color);
+    card.innerHTML = `
+      <style>.level-card[style*="${level.color}"]::before { background: ${level.color}; }</style>
+      <div class="level-card-header">
+        <span class="level-card-icon">${isUnlocked ? level.icon : '🔒'}</span>
+        <div>
+          <div class="level-card-title">${level.name}</div>
+          <div class="level-card-number">Level ${level.level}</div>
+        </div>
+      </div>
+      <div class="level-card-desc">${level.description}</div>
+      <div class="level-card-footer">
+        <span class="level-card-questions">📝 ${level.totalQuestions} questions</span>
+        ${isUnlocked ? '<span style="color:' + level.color + '">Play →</span>' : '<span class="level-lock-icon">🔒 Locked</span>'}
+      </div>
+    `;
+
+    if (isUnlocked) {
+      card.addEventListener('click', () => startQuiz(level.level));
+    }
+
+    grid.appendChild(card);
+  });
+}
+
+function isLevelUnlocked(level) {
+  if (level === 1) return true;
+  const p = APP.profile;
+
+  const levelDef = APP.levels.find((l) => l.level === level);
+  if (!levelDef) return false;
+  if (p.xp < levelDef.xpRequired) return false;
+
+  const prevLevelKey = `level_${level - 1}`;
+  const prevScore = p.stats.levelScores[prevLevelKey];
+  if (!prevScore) return false;
+
+  const prevLevelDef = APP.levels.find((l) => l.level === level);
+  const requiredAccuracy = prevLevelDef ? prevLevelDef.accuracyToUnlock : 70;
+  return prevScore.bestAccuracy >= requiredAccuracy;
 }
 
 function renderBadges() {
@@ -446,7 +440,7 @@ async function loadLeaderboard(type) {
       let rank = 1;
       snapshot.forEach(doc => {
         const data = doc.data();
-        html += createLeaderboardRow(rank++, data.name, data.xp_earned, data.currentLevel || '—');
+        html += createLeaderboardRow(rank++, data.name, data.xp_earned, '—');
       });
       if (snapshot.empty) {
         html = '<div style="text-align:center; padding: 2rem; color: var(--text-muted);">No scores recorded this month yet!</div>';
@@ -484,45 +478,19 @@ function createLeaderboardRow(rank, name, xp, level) {
 }
 
 // ============ QUIZ ENGINE ============
-async function startQuiz(selectedTopic = 'all') {
+async function startQuiz(level) {
   try {
-    console.log("Starting quiz for topic:", selectedTopic);
-    let allQ = [];
-    if (typeof STATIC_QUESTIONS !== 'undefined' && Array.isArray(STATIC_QUESTIONS.questions)) {
-      allQ = STATIC_QUESTIONS.questions;
-    } else {
-      console.error("STATIC_QUESTIONS is missing or empty!");
-      showToast("Questions database loading error", "error");
+    let levelQuestions = STATIC_QUESTIONS.questions.filter(q => q.level === level);
+    levelQuestions = levelQuestions.sort(() => Math.random() - 0.5).slice(0, 10);
+
+    if (levelQuestions.length === 0) {
+      showToast('No questions available for this level!', 'error');
       return;
     }
-
-    let pool = [];
-    if (!selectedTopic || selectedTopic === 'all') {
-      pool = [...allQ];
-    } else {
-      const topicLower = selectedTopic.trim().toLowerCase();
-      pool = allQ.filter(q => q.topic && q.topic.trim().toLowerCase() === topicLower);
-    }
-
-    // Fallback to all questions if specific topic filter returned 0
-    if (pool.length === 0) {
-      console.warn("Topic pool empty, falling back to all questions for topic:", selectedTopic);
-      pool = [...allQ];
-    }
-
-    let quizQuestions = pool.sort(() => Math.random() - 0.5).slice(0, 10);
-
-    if (quizQuestions.length === 0) {
-      showToast('No questions available!', 'error');
-      return;
-    }
-
-    const currentLevel = (APP.profile && APP.profile.currentLevel) ? APP.profile.currentLevel : 1;
 
     APP.currentQuiz = {
-      topic: selectedTopic || 'all',
-      level: currentLevel,
-      questions: quizQuestions,
+      level: level,
+      questions: levelQuestions,
       currentIndex: 0,
       answers: [],
       streak: 0,
@@ -533,8 +501,7 @@ async function startQuiz(selectedTopic = 'all') {
     showScreen('quiz');
     renderQuestion();
   } catch (e) {
-    console.error("Error in startQuiz:", e);
-    showToast('Failed to load questions: ' + e.message, 'error');
+    showToast('Failed to load questions.', 'error');
   }
 }
 
@@ -549,10 +516,9 @@ function renderQuestion() {
   const fire = document.getElementById('streak-fire');
   fire.style.opacity = quiz.streak > 0 ? '1' : '0.3';
 
-  const milestone = getMilestoneForLevel(quiz.level);
-  document.getElementById('quiz-level-label').textContent = `Level ${quiz.level} — ${milestone.name}`;
-  const topicIcon = q.topic === 'Invoicing' ? '🧾 ' : (q.topic === 'Meta Ads' ? '📱 ' : '🎯 ');
-  document.getElementById('quiz-category').textContent = `${topicIcon}${q.topic || 'Google Ads'} • ${q.category || ''}`;
+  const levelDef = APP.levels.find((l) => l.level === quiz.level);
+  document.getElementById('quiz-level-label').textContent = `Level ${quiz.level} — ${levelDef ? levelDef.name : ''}`;
+  document.getElementById('quiz-category').textContent = q.category;
   document.getElementById('question-type-badge').textContent = q.type === 'true_false' ? 'True / False' : 'Multiple Choice';
   document.getElementById('question-text').textContent = q.question;
 
@@ -571,37 +537,12 @@ function renderQuestion() {
     optionsGrid.appendChild(btn);
   });
 
-  // Timer Setup
-  if (APP.timerInterval) clearInterval(APP.timerInterval);
-  quiz.timeRemaining = 45;
-  const timerText = document.getElementById('timer-text');
-  const timerDiv = document.getElementById('quiz-timer');
-  timerText.textContent = quiz.timeRemaining;
-  timerDiv.style.color = 'var(--accent-blue)';
-
-  APP.timerInterval = setInterval(() => {
-    quiz.timeRemaining--;
-    timerText.textContent = quiz.timeRemaining;
-
-    if (quiz.timeRemaining <= 10) {
-      timerDiv.style.color = 'var(--accent-red)';
-    }
-
-    if (quiz.timeRemaining <= 0) {
-      clearInterval(APP.timerInterval);
-      handleAnswer(-1); // -1 signifies a timeout
-    }
-  }, 1000);
-
   document.getElementById('feedback-card').style.display = 'none';
 }
 
 function handleAnswer(selectedIndex) {
   const quiz = APP.currentQuiz;
   const q = quiz.questions[quiz.currentIndex];
-  
-  if (APP.timerInterval) clearInterval(APP.timerInterval);
-
   const isCorrect = selectedIndex === q.correct_answer;
 
   const options = document.querySelectorAll('.option-btn');
@@ -616,17 +557,14 @@ function handleAnswer(selectedIndex) {
 
   let xp = 0;
   if (isCorrect) {
-    // Base 10 XP + up to 50 XP Streak Bonus
-    const baseXP = 10 + (Math.min(quiz.streak, 10) * 5);
-    // Multiply by remaining seconds
-    xp = baseXP * Math.max(1, quiz.timeRemaining);
+    xp = 10 * quiz.level;
+    xp += Math.min(quiz.streak, 10) * 5;
   }
   quiz.xpEarned += xp;
 
   quiz.answers.push({
     questionId: q.id,
     selected: selectedIndex,
-    timeRemaining: quiz.timeRemaining,
     correct: isCorrect,
     xpEarned: xp,
   });
@@ -639,11 +577,7 @@ function handleAnswer(selectedIndex) {
   }
   fire.style.opacity = quiz.streak > 0 ? '1' : '0.3';
 
-  let feedbackMessage = q.explanation;
-  if (selectedIndex === -1) {
-    feedbackMessage = "Time's up! " + q.explanation;
-  }
-  showFeedback(isCorrect, feedbackMessage, xp, q.category, q.link);
+  showFeedback(isCorrect, q.explanation, xp, q.category, q.link);
 }
 
 function showFeedback(isCorrect, explanation, xp, category, customLink) {
@@ -704,15 +638,22 @@ async function finishQuiz() {
   });
   p.stats.bestStreak = Math.max(p.stats.bestStreak, maxStreak);
 
-  const levelKey = `general_pool`;
+  const levelKey = `level_${quiz.level}`;
   if (!p.stats.levelScores[levelKey]) p.stats.levelScores[levelKey] = { bestAccuracy: 0, timesPlayed: 0 };
   p.stats.levelScores[levelKey].bestAccuracy = Math.max(p.stats.levelScores[levelKey].bestAccuracy, accuracy);
   p.stats.levelScores[levelKey].timesPlayed++;
 
   const prevLevel = p.currentLevel;
   p.xp += quiz.xpEarned;
-  p.currentLevel = Math.floor(p.xp / 1000) + 1;
-  const leveledUp = p.currentLevel > prevLevel;
+
+  let leveledUp = false;
+  while (true) {
+    const threshold = getTotalXPForLevel(p.currentLevel + 1);
+    if (p.xp >= threshold && p.currentLevel < 5) {
+      p.currentLevel++;
+      leveledUp = true;
+    } else break;
+  }
 
   if (totalCorrect === totalQuestions && totalQuestions >= 10) {
     if (!p.badges.includes('perfect_10')) p.badges.push('perfect_10');
@@ -731,7 +672,6 @@ async function finishQuiz() {
         user_id: APP.user.uid,
         name: p.name,
         month: monthKey,
-        currentLevel: p.currentLevel,
         xp_earned: firebase.firestore.FieldValue.increment(quiz.xpEarned)
       }, { merge: true });
     } catch (e) {
@@ -761,8 +701,8 @@ function showResults(correct, total, accuracy, xpEarned, leveledUp, prevLevel) {
   const levelUpCard = document.getElementById('level-up-card');
   if (leveledUp) {
     levelUpCard.style.display = 'block';
-    const milestone = getMilestoneForLevel(APP.profile.currentLevel);
-    document.getElementById('level-up-text').textContent = `You've advanced to Level ${APP.profile.currentLevel} — ${milestone.name}!`;
+    const newLevelDef = APP.levels.find((l) => l.level === APP.profile.currentLevel);
+    document.getElementById('level-up-text').textContent = `You've advanced to Level ${APP.profile.currentLevel} — ${newLevelDef ? newLevelDef.name : ''}!`;
   } else levelUpCard.style.display = 'none';
 }
 
@@ -770,7 +710,6 @@ function handleQuitQuiz() {
   if (APP.currentQuiz && APP.currentQuiz.answers.length > 0) {
     if (!confirm('Are you sure you want to quit? Your progress in this quiz will be lost.')) return;
   }
-  if (APP.timerInterval) clearInterval(APP.timerInterval);
   APP.currentQuiz = null;
   openDashboard();
 }
@@ -803,7 +742,6 @@ function handlePoolQuestions() {
 document.addEventListener('DOMContentLoaded', () => {
   // Auth Screen bounds
   document.getElementById('btn-show-auth').addEventListener('click', showAuthModal);
-  
   document.getElementById('btn-close-auth').addEventListener('click', closeAuthModal);
   document.getElementById('btn-auth-toggle').addEventListener('click', (e) => { e.preventDefault(); toggleAuthMode(); });
   document.getElementById('btn-auth-submit').addEventListener('click', handleAuthSubmit);
@@ -829,15 +767,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Enter key on inputs
   document.getElementById('auth-password').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleAuthSubmit(); });
 
-  // Dashboard Topic Cards & Controls
-  document.querySelectorAll('.topic-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const topic = card.getAttribute('data-topic') || 'all';
-      startQuiz(topic);
-    });
-  });
-  document.getElementById('btn-play-match')?.addEventListener('click', () => startQuiz('all'));
-  document.getElementById('btn-pool-questions')?.addEventListener('click', handlePoolQuestions);
+  // Dashboard
+  document.getElementById('btn-pool-questions').addEventListener('click', handlePoolQuestions);
   document.getElementById('btn-logout').addEventListener('click', handleLogout);
   document.getElementById('btn-leaderboard').addEventListener('click', openLeaderboard);
 
@@ -846,9 +777,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-next-question').addEventListener('click', handleNextQuestion);
 
   // Results
-  document.getElementById('btn-retry').addEventListener('click', () => { 
-    if (APP.currentQuiz) startQuiz(APP.currentQuiz.topic || 'all'); 
-  });
+  document.getElementById('btn-retry').addEventListener('click', () => { if (APP.currentQuiz) startQuiz(APP.currentQuiz.level); });
   document.getElementById('btn-back-dashboard').addEventListener('click', openDashboard);
 
   // Leaderboard Modals

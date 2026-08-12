@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=2.2">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <canvas id="particles-canvas"></canvas>
@@ -37,11 +37,10 @@
           <button id="btn-new-profile" class="btn btn-ghost">Create New Profile</button>
         </div>
 
-        <div id="new-profile-section" >
+        <div id="new-profile-section">
           <button id="btn-show-auth" class="btn btn-primary btn-lg pulse-btn">
             <span class="btn-icon">🔐</span> Login / Register
           </button>
-          
         </div>
       </div>
 
@@ -122,68 +121,18 @@
       </div>
     </div>
 
-    <!-- Quick Match -->
-        <!-- Topic / Category Selection -->
-    <div class="topics-section">
-      <div class="section-header-row">
-        <h2 class="section-title" style="margin-bottom: 0.25rem;">Επιλογή Ενότητας Εκπαίδευσης</h2>
-        <p class="section-subtitle" style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">Επιλέξτε συγκεκριμένη θεματική ενότητα ή παίξτε ένα μικτό quiz 10 ερωτήσεων</p>
-      </div>
-      
-      <div class="topics-grid" id="topics-grid">
-        <div class="topic-card glass-card" data-topic="Invoicing">
-          <div class="topic-card-glow"></div>
-          <div class="topic-icon">🧾</div>
-          <div class="topic-info">
-            <h3 class="topic-title">Invoicing & Διαδικασίες</h3>
-            <p class="topic-desc">Τιμολόγηση, PO, εγκρίσεις, billing cycles & media spend reconciliation</p>
-            <div class="topic-meta">
-              <span class="topic-count" id="count-invoicing">8 Ερωτήσεις</span>
-              <span class="topic-action">Έναρξη Module →</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="topic-card glass-card" data-topic="Google Ads">
-          <div class="topic-card-glow"></div>
-          <div class="topic-icon">🎯</div>
-          <div class="topic-info">
-            <h3 class="topic-title">Google Ads (PPC)</h3>
-            <p class="topic-desc">Search, Shopping, Performance Max, Smart Bidding & Quality Score</p>
-            <div class="topic-meta">
-              <span class="topic-count" id="count-google">55 Ερωτήσεις</span>
-              <span class="topic-action">Έναρξη Module →</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="topic-card glass-card" data-topic="Meta Ads">
-          <div class="topic-card-glow"></div>
-          <div class="topic-icon">📱</div>
-          <div class="topic-info">
-            <h3 class="topic-title">Meta Ads</h3>
-            <p class="topic-desc">Facebook & Instagram campaigns, Conversions API, CBO & Placements</p>
-            <div class="topic-meta">
-              <span class="topic-count" id="count-meta">5 Ερωτήσεις</span>
-              <span class="topic-action">Έναρξη Module →</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="topic-card glass-card topic-card-all" data-topic="all">
-          <div class="topic-card-glow"></div>
-          <div class="topic-icon">⚡</div>
-          <div class="topic-info">
-            <h3 class="topic-title">All Topics (Mix)</h3>
-            <p class="topic-desc">Τυχαία επιλογή 10 ερωτήσεων από όλες τις διαθέσιμες θεματικές ενότητες</p>
-            <div class="topic-meta">
-              <span class="topic-count" id="count-all">68 Ερωτήσεις</span>
-              <span class="topic-action">Quick Match →</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Level Selection -->
+    <h2 class="section-title">Choose Your Level</h2>
+    <div class="level-grid" id="level-grid">
+      <!-- Populated by JS -->
     </div>
+
+    <!-- Badges -->
+    <h2 class="section-title">Badges</h2>
+    <div class="badges-grid" id="badges-grid">
+      <!-- Populated by JS -->
+    </div>
+  </div>
 
   <!-- ============ QUIZ SCREEN ============ -->
   <div id="screen-quiz" class="screen">
@@ -195,14 +144,9 @@
           <div class="quiz-progress-fill" id="quiz-progress-bar" style="width: 10%"></div>
         </div>
       </div>
-      <div class="header-right" style="display: flex; align-items: center; gap: 1.5rem;">
-        <div class="quiz-timer" id="quiz-timer" style="font-size: 1.5rem; font-weight: bold; color: var(--accent-blue);">
-          ⏱️ <span id="timer-text">45</span>s
-        </div>
-        <div style="font-size: 1.25rem;">
-          <span class="streak-fire" id="streak-fire">🔥</span>
-          <span id="quiz-streak">0</span>
-        </div>
+      <div class="quiz-streak-display">
+        <span class="streak-fire" id="streak-fire">🔥</span>
+        <span id="quiz-streak">0</span>
       </div>
     </div>
 
@@ -365,8 +309,8 @@
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
 
-  <script src="js/particles.js?v=2.2"></script>
-  <script src="js/questions.js?v=2.2"></script>
-  <script src="js/app.js?v=2.2"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/questions.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
