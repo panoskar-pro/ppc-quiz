@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=9.0">
+  <link rel="stylesheet" href="css/style.css?v=10.0">
 </head>
 <body>
   <canvas id="particles-canvas"></canvas>
@@ -38,7 +38,7 @@
         </div>
 
         <div id="new-profile-section">
-          <button id="btn-show-auth" onclick="document.getElementById('modal-auth').style.display='flex'" class="btn btn-primary btn-lg pulse-btn">
+          <button id="btn-show-auth" class="btn btn-primary btn-lg pulse-btn">
             <span class="btn-icon">🔐</span> Login / Register
           </button>
         </div>
@@ -121,40 +121,10 @@
       </div>
     </div>
 
-        <!-- Course Selection -->
-    <h2 class="section-title">Choose Your Course</h2>
-    <div class="course-grid" id="course-grid">
-      <div class="course-card glass-card" data-course="Invoicing">
-        <div class="course-card-glow" style="background: var(--gradient-green);"></div>
-        <div class="course-card-header">
-          <span class="course-icon">🧾</span>
-          <div>
-            <h3 class="course-title">Invoicing & Procedures</h3>
-            <span class="course-badge">Company Training</span>
-          </div>
-        </div>
-        <p class="course-desc">Διαδικασίες τιμολόγησης, PO, εγκρίσεις, billing & reconciliation</p>
-        <div class="course-card-footer">
-          <span class="course-count" id="count-invoicing">3 Questions</span>
-          <span class="course-action" style="color: var(--accent-green);">Start Course →</span>
-        </div>
-      </div>
-
-      <div class="course-card glass-card" data-course="Google Ads">
-        <div class="course-card-glow" style="background: var(--gradient-primary);"></div>
-        <div class="course-card-header">
-          <span class="course-icon">🎯</span>
-          <div>
-            <h3 class="course-title">Google Ads (PPC)</h3>
-            <span class="course-badge">Performance Marketing</span>
-          </div>
-        </div>
-        <p class="course-desc">Search, Shopping, Performance Max, Smart Bidding, Quality Score & Strategy</p>
-        <div class="course-card-footer">
-          <span class="course-count" id="count-google">55 Questions</span>
-          <span class="course-action" style="color: var(--accent-blue);">Start Course →</span>
-        </div>
-      </div>
+    <!-- Level Selection -->
+    <h2 class="section-title">Choose Your Category</h2>
+    <div class="level-grid" id="level-grid">
+      <!-- Populated by JS -->
     </div>
 
     <!-- Badges -->
@@ -295,7 +265,7 @@
     <div class="modal glass-card">
       <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h2 id="auth-title" style="margin: 0;">Sign In</h2>
-        <button id="btn-close-auth" onclick="document.getElementById('modal-auth').style.display='none'" class="btn btn-ghost btn-sm" style="padding: 5px;">✕</button>
+        <button id="btn-close-auth" class="btn btn-ghost btn-sm" style="padding: 5px;">✕</button>
       </div>
       
       <div id="auth-error" style="color: var(--accent-red); margin-bottom: 15px; font-size: 0.9rem; text-align: center; display: none;"></div>
@@ -307,13 +277,13 @@
       <div class="input-group" style="position: relative;">
         <label for="auth-password">Password</label>
         <input type="password" id="auth-password" placeholder="••••••••" style="padding-right: 40px;">
-        <button type="button" id="btn-toggle-password" onclick="var p=document.getElementById('auth-password'); p.type = (p.type==='password'?'text':'password');" style="position: absolute; right: 10px; bottom: 6px; z-index: 10; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted);" title="Toggle Password Visibility">👁️</button>
+        <button type="button" id="btn-toggle-password" style="position: absolute; right: 10px; bottom: 10px; padding: 0; background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--text-muted);" title="Toggle Password Visibility">👁️</button>
       </div>
 
       <div class="input-group" id="auth-verify-password-group" style="display:none; position: relative;">
         <label for="auth-verify-password">Verify Password</label>
         <input type="password" id="auth-verify-password" placeholder="••••••••" onpaste="return false;" style="padding-right: 40px;">
-        <button type="button" id="btn-toggle-verify-password" onclick="var p=document.getElementById('auth-verify-password'); p.type = (p.type==='password'?'text':'password');" style="position: absolute; right: 10px; bottom: 6px; z-index: 10; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted);" title="Toggle Password Visibility">👁️</button>
+        <button type="button" id="btn-toggle-verify-password" style="position: absolute; right: 10px; bottom: 10px; padding: 0; background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--text-muted);" title="Toggle Password Visibility">👁️</button>
       </div>
       
       <div class="input-group" id="auth-name-group" style="display:none;">
@@ -321,11 +291,11 @@
         <input type="text" id="auth-name" placeholder="PPC Master" autocomplete="name">
       </div>
 
-      <button id="btn-auth-submit" onclick="handleAuthSubmit()" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Sign In</button>
+      <button id="btn-auth-submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Sign In</button>
       
       <div style="text-align: center; margin-top: 15px; font-size: 0.9em; color: var(--text-muted);">
         <span id="auth-toggle-text">Need an account?</span> 
-        <a href="#" id="btn-auth-toggle" onclick="event.preventDefault(); toggleAuthMode();" onclick="toggleAuthMode()" style="color: var(--accent-blue); text-decoration: none;">Register</a>
+        <a href="#" id="btn-auth-toggle" style="color: var(--accent-blue); text-decoration: none;">Register</a>
       </div>
     </div>
   </div>
@@ -438,28 +408,6 @@
  * ============================================================================
  * TRAINING & PPC QUIZ - QUESTION DATABASE
  * ============================================================================
- * 
- * ΠΩΣ ΝΑ ΠΡΟΣΘΕΣΕΤΕ ΝΕΕΣ ΕΡΩΤΗΣΕΙΣ ΓΙΑ ΤΟ INVOICING:
- * ----------------------------------------------------------------------------
- * Αντιγράψτε το παρακάτω μπλοκ και προσθέστε το στη λίστα questions:
- * 
- * {
- *   "id": 104,
- *   "topic": "Invoicing",                  // "Invoicing" ή "Google Ads"
- *   "level": 1,
- *   "type": "multiple_choice",             // "multiple_choice" ή "true_false"
- *   "category": "Διαδικασίες",             // Κατηγορία
- *   "question": "Η ερώτησή σας εδώ;",
- *   "options": [
- *     "Επιλογή A",
- *     "Επιλογή B",
- *     "Επιλογή C",
- *     "Επιλογή D"
- *   ],
- *   "correct_answer": 0,                   // 0 για την 1η επιλογή, 1 για τη 2η κ.ο.κ.
- *   "explanation": "Επεξήγηση γιατί αυτή είναι η σωστή απάντηση."
- * },
- * ============================================================================
  */
 
 const STATIC_QUESTIONS = 
@@ -467,7 +415,7 @@ const STATIC_QUESTIONS =
   "metadata": {
     "lastUpdated": "2026-08-12",
     "totalQuestions": 58,
-    "version": "3.1.0",
+    "version": "3.2.0",
     "courses": [
       "Google Ads",
       "Invoicing"
@@ -1417,11 +1365,8 @@ const ALLOWED_EMAILS = [
 
 // ============ LEVELS & CATEGORIES ============
 const STATIC_LEVELS = [
-  { level: 1, name: 'Rookie', description: 'Google Ads fundamentals and basic concepts', icon: '🌱', xpRequired: 0, questionsToUnlock: 0, accuracyToUnlock: 0, color: '#4ade80' },
-  { level: 2, name: 'Specialist', description: 'Campaign types, bidding strategies, and keyword match types', icon: '⚡', xpRequired: 100, questionsToUnlock: 8, accuracyToUnlock: 70, color: '#60a5fa' },
-  { level: 3, name: 'Strategist', description: 'Optimization, Quality Score, ad extensions, and audiences', icon: '🎯', xpRequired: 300, questionsToUnlock: 8, accuracyToUnlock: 75, color: '#a78bfa' },
-  { level: 4, name: 'Expert', description: 'Advanced bidding, attribution, scripts, and automation', icon: '🔥', xpRequired: 600, questionsToUnlock: 8, accuracyToUnlock: 80, color: '#f97316' },
-  { level: 5, name: 'Master', description: 'Complex scenarios, cross-platform strategy, and measurement', icon: '👑', xpRequired: 1000, questionsToUnlock: 8, accuracyToUnlock: 85, color: '#eab308' },
+  { level: 1, name: 'Invoicing & Procedures', topic: 'Invoicing', description: 'Διαδικασίες τιμολόγησης, PO, εγκρίσεις, billing & reconciliation', icon: '🧾', xpRequired: 0, questionsToUnlock: 0, accuracyToUnlock: 0, color: '#10b981' },
+  { level: 2, name: 'Google Ads (PPC)', topic: 'Google Ads', description: 'Search, Shopping, Performance Max, Smart Bidding & Strategy', icon: '🎯', xpRequired: 0, questionsToUnlock: 0, accuracyToUnlock: 0, color: '#3b82f6' }
 ];
 
 const CATEGORY_LINKS = {
@@ -1462,35 +1407,20 @@ auth.onAuthStateChanged(async (user) => {
       const docRef = db.collection('users').doc(user.uid);
       const docSnap = await docRef.get();
 
-      if (docSnap && docSnap.exists) {
-        APP.profile = docSnap.data();
-        try {
-          await docRef.update({ lastActive: firebase.firestore.FieldValue.serverTimestamp() });
-        } catch(e) {}
+      if (!docSnap.exists) {
+        // Fallback if registered but doc wasn't created
+        await createProfileDoc(user, user.email.split('@')[0]);
       } else {
-        const defaultName = user.displayName || user.email.split('@')[0];
-        await createProfileDoc(user, defaultName);
+        APP.profile = docSnap.data();
+        await docRef.update({ lastActive: firebase.firestore.FieldValue.serverTimestamp() });
       }
-    } catch (e) {
-      console.warn("Firestore profile load warning:", e);
-      // Fallback profile so user can play immediately even if Firestore has network/permission delay
-      if (!APP.profile) {
-        APP.profile = {
-          uid: user.uid,
-          name: user.displayName || user.email.split('@')[0],
-          email: user.email,
-          totalXP: 0,
-          currentLevel: 1,
-          answeredCount: 0,
-          correctCount: 0,
-          bestStreak: 0,
-          badges: []
-        };
-      }
-    }
 
-    closeAuthModal();
-    openDashboard();
+      closeAuthModal();
+      openDashboard();
+    } catch (e) {
+      console.error("Error fetching user data:", e);
+      showToast("Error loading profile", "error");
+    }
   } else {
     APP.user = null;
     APP.profile = null;
@@ -1547,8 +1477,7 @@ function toggleAuthMode() {
 }
 
 function showAuthModal() {
-  const m = document.getElementById('modal-auth');
-  if (m) m.style.display = 'flex';
+  document.getElementById('modal-auth').style.display = 'flex';
 }
 
 function closeAuthModal() {
@@ -1556,87 +1485,66 @@ function closeAuthModal() {
 }
 
 async async function handleAuthSubmit() {
-  const emailEl = document.getElementById('auth-email');
-  const passwordEl = document.getElementById('auth-password');
-  const verifyPasswordEl = document.getElementById('auth-verify-password');
-  const nameEl = document.getElementById('auth-name');
+  const email = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-password').value;
+  const verifyPassword = document.getElementById('auth-verify-password').value;
+  const name = document.getElementById('auth-name').value.trim();
   const errorEl = document.getElementById('auth-error');
   const btn = document.getElementById('btn-auth-submit');
 
-  const email = emailEl ? emailEl.value.trim() : '';
-  const password = passwordEl ? passwordEl.value : '';
-  const verifyPassword = verifyPasswordEl ? verifyPasswordEl.value : '';
-  const name = nameEl ? nameEl.value.trim() : '';
-
-  if (errorEl) errorEl.style.display = 'none';
+  errorEl.style.display = 'none';
 
   if (!email || !password) {
-    if (errorEl) {
-      errorEl.textContent = "Παρακαλώ συμπληρώστε Email και Κωδικό.";
-      errorEl.style.display = 'block';
-    }
+    errorEl.textContent = "Please fill in all fields.";
+    errorEl.style.display = 'block';
     return;
   }
 
   if (APP.authMode === 'register') {
     if (password !== verifyPassword) {
-      if (errorEl) {
-        errorEl.textContent = "Οι κωδικοί δεν ταιριάζουν.";
-        errorEl.style.display = 'block';
-      }
+      errorEl.textContent = "Passwords do not match.";
+      errorEl.style.display = 'block';
       return;
     }
 
     if (password.length < 6) {
-      if (errorEl) {
-        errorEl.textContent = "Ο κωδικός πρέπει να έχει τουλάχιστον 6 χαρακτήρες.";
-        errorEl.style.display = 'block';
-      }
+      errorEl.textContent = "Password must be at least 6 characters long.";
+      errorEl.style.display = 'block';
       return;
     }
   }
 
-  if (btn) {
-    btn.disabled = true;
-    btn.textContent = "Σύνδεση...";
+  // Whitelist restriction check (only necessary for registration, not login)
+  if (APP.authMode === 'register') {
+    const isAllowed = ALLOWED_EMAILS.map(e => e.toLowerCase()).includes(email.toLowerCase());
+    if (!isAllowed) {
+      errorEl.textContent = "Access denied: Your exact email address is not on the authorized team list.";
+      errorEl.style.display = 'block';
+      return;
+    }
   }
+
+  btn.disabled = true;
+  btn.textContent = "Processing...";
 
   try {
     if (APP.authMode === 'login') {
       await auth.signInWithEmailAndPassword(email, password);
     } else {
       if (!name) {
-        throw new Error("Παρακαλώ συμπληρώστε Όνομα Εμφάνισης.");
+        throw new Error("Display name is required for registration.");
       }
       const userCred = await auth.createUserWithEmailAndPassword(email, password);
       await createProfileDoc(userCred.user, name);
     }
+    // Success is handled by onAuthStateChanged
   } catch (error) {
-    console.error("Auth Exception:", error);
-    let msg = error.message;
-    if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
-      msg = "Λάθος email ή κωδικός πρόσβασης. Αν δεν έχετε λογαριασμό, πατήστε κάτω στο Register.";
-    } else if (error.code === 'auth/email-already-in-use') {
-      msg = "Υπάρχει ήδη λογαριασμός με αυτό το email. Πατήστε Sign In.";
-    } else if (error.code === 'auth/requests-from-referer-null-are-blocked') {
-      msg = "Σφάλμα: Η σύνδεση πρέπει να γίνεται από το live link https://panoskar-pro.github.io/ppc-quiz/";
-    }
-
-    if (errorEl) {
-      errorEl.textContent = msg;
-      errorEl.style.display = 'block';
-    } else {
-      alert(msg);
-    }
-
-    if (btn) {
-      btn.disabled = false;
-      btn.textContent = APP.authMode === 'login' ? 'Sign In' : 'Register';
-    }
+    errorEl.textContent = error.message;
+    errorEl.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = APP.authMode === 'login' ? 'Sign In' : 'Register';
   }
 }
-window.handleAuthSubmit = handleAuthSubmit;
-
 
 function handleLogout() {
   auth.signOut();
@@ -1713,17 +1621,6 @@ function renderDashboard() {
   const p = APP.profile;
   if (!p) return;
 
-  // Update Course Question Counts
-  if (typeof STATIC_QUESTIONS !== 'undefined' && STATIC_QUESTIONS.questions) {
-    const invCount = STATIC_QUESTIONS.questions.filter(q => q.topic === 'Invoicing').length;
-    const gCount = STATIC_QUESTIONS.questions.filter(q => q.topic === 'Google Ads' || !q.topic).length;
-
-    const elInv = document.getElementById('count-invoicing');
-    const elG = document.getElementById('count-google');
-    if (elInv) elInv.textContent = `${invCount} Questions`;
-    if (elG) elG.textContent = `${gCount} Questions`;
-  }
-
   document.getElementById('dash-avatar').textContent = getInitials(p.name);
   document.getElementById('dash-name').textContent = p.name;
   const levelInfo = APP.levels.find((l) => l.level === p.currentLevel);
@@ -1747,13 +1644,46 @@ function renderDashboard() {
   document.getElementById('stat-streak').textContent = p.stats.bestStreak;
   document.getElementById('stat-xp').textContent = p.xp;
 
-  
+  renderLevelGrid();
   renderBadges();
 }
 
+function renderLevelGrid() {
+  const grid = document.getElementById('level-grid');
+  grid.innerHTML = '';
 
+  APP.levels.forEach((level) => {
+    const isUnlocked = isLevelUnlocked(level.level);
+    const card = document.createElement('div');
+    card.className = `level-card glass-card ${isUnlocked ? '' : 'level-locked'}`;
+    card.style.setProperty('--level-color', level.color);
+    card.innerHTML = `
+      <style>.level-card[style*="${level.color}"]::before { background: ${level.color}; }</style>
+      <div class="level-card-header">
+        <span class="level-card-icon">${isUnlocked ? level.icon : '🔒'}</span>
+        <div>
+          <div class="level-card-title">${level.name}</div>
+          <div class="level-card-number">Level ${level.level}</div>
+        </div>
+      </div>
+      <div class="level-card-desc">${level.description}</div>
+      <div class="level-card-footer">
+        <span class="level-card-questions">📝 ${level.totalQuestions} questions</span>
+        ${isUnlocked ? '<span style="color:' + level.color + '">Play →</span>' : '<span class="level-lock-icon">🔒 Locked</span>'}
+      </div>
+    `;
 
+    if (isUnlocked) {
+      card.addEventListener('click', () => startQuiz(level.level));
+    }
 
+    grid.appendChild(card);
+  });
+}
+
+function isLevelUnlocked(levelDef) {
+  return true; // All categories 100% unlocked for everyone, no dependencies!
+}
 
 function renderBadges() {
   const grid = document.getElementById('badges-grid');
@@ -1848,8 +1778,17 @@ function createLeaderboardRow(rank, name, xp, level) {
 }
 
 // ============ QUIZ ENGINE ============
-async function startQuiz(courseTopic = 'Google Ads') {
+async function startQuiz(levelOrTopic) {
   try {
+    let targetTopic = 'Google Ads';
+    if (typeof levelOrTopic === 'string') {
+      targetTopic = levelOrTopic;
+    } else if (levelOrTopic === 1) {
+      targetTopic = 'Invoicing';
+    } else if (levelOrTopic === 2) {
+      targetTopic = 'Google Ads';
+    }
+
     let allQ = [];
     if (typeof STATIC_QUESTIONS !== 'undefined' && Array.isArray(STATIC_QUESTIONS.questions)) {
       allQ = STATIC_QUESTIONS.questions;
@@ -1858,28 +1797,16 @@ async function startQuiz(courseTopic = 'Google Ads') {
       return;
     }
 
-    let pool = [];
-    if (!courseTopic || courseTopic === 'all') {
-      pool = [...allQ];
-    } else {
-      const targetTopic = courseTopic.toLowerCase().trim();
-      pool = allQ.filter(q => (q.topic && q.topic.toLowerCase().trim() === targetTopic) || (!q.topic && targetTopic === 'google ads'));
-    }
+    const tLower = targetTopic.toLowerCase().trim();
+    let pool = allQ.filter(q => (q.topic && q.topic.toLowerCase().trim() === tLower) || (!q.topic && tLower === 'google ads'));
 
-    if (pool.length === 0) {
-      pool = [...allQ];
-    }
+    if (pool.length === 0) pool = [...allQ];
 
     let quizQuestions = pool.sort(() => Math.random() - 0.5).slice(0, 10);
 
-    if (quizQuestions.length === 0) {
-      showToast('No questions available for this course!', 'error');
-      return;
-    }
-
     APP.currentQuiz = {
-      topic: courseTopic,
-      level: (APP.profile && APP.profile.currentLevel) ? APP.profile.currentLevel : 1,
+      level: 1,
+      topic: targetTopic,
       questions: quizQuestions,
       currentIndex: 0,
       answers: [],
@@ -1907,9 +1834,9 @@ function renderQuestion() {
   const fire = document.getElementById('streak-fire');
   fire.style.opacity = quiz.streak > 0 ? '1' : '0.3';
 
-  const icon = (q.topic === 'Invoicing') ? '🧾 ' : '🎯 ';
-  document.getElementById('quiz-level-label').textContent = `${icon}${q.topic || 'Google Ads'}`;
-  document.getElementById('quiz-category').textContent = q.category || 'Fundamentals';
+  const levelDef = APP.levels.find((l) => l.level === quiz.level);
+  const topicIcon = (quiz.topic === 'Invoicing') ? '🧾 ' : '🎯 '; document.getElementById('quiz-level-label').textContent = `${topicIcon}${quiz.topic || 'Google Ads'}`;
+  document.getElementById('quiz-category').textContent = q.category;
   document.getElementById('question-type-badge').textContent = q.type === 'true_false' ? 'True / False' : 'Multiple Choice';
   document.getElementById('question-text').textContent = q.question;
 
@@ -2130,7 +2057,7 @@ function handlePoolQuestions() {
 }
 
 // ============ EVENT LISTENERS ============
-function setupEventListeners() {
+document.addEventListener('DOMContentLoaded', () => {
   // Auth Screen bounds
   document.getElementById('btn-show-auth').addEventListener('click', showAuthModal);
   document.getElementById('btn-close-auth').addEventListener('click', closeAuthModal);
@@ -2158,14 +2085,6 @@ function setupEventListeners() {
   // Enter key on inputs
   document.getElementById('auth-password').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleAuthSubmit(); });
 
-  // Course Selection Cards
-  document.querySelectorAll('.course-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const course = card.getAttribute('data-course') || 'Google Ads';
-      startQuiz(course);
-    });
-  });
-
   // Dashboard
   document.getElementById('btn-pool-questions').addEventListener('click', handlePoolQuestions);
   document.getElementById('btn-logout').addEventListener('click', handleLogout);
@@ -2176,7 +2095,7 @@ function setupEventListeners() {
   document.getElementById('btn-next-question').addEventListener('click', handleNextQuestion);
 
   // Results
-  document.getElementById('btn-retry').addEventListener('click', () => { if (APP.currentQuiz) startQuiz(APP.currentQuiz.topic); });
+  document.getElementById('btn-retry').addEventListener('click', () => { if (APP.currentQuiz) startQuiz(APP.currentQuiz.level); });
   document.getElementById('btn-back-dashboard').addEventListener('click', openDashboard);
 
   // Leaderboard Modals
@@ -2189,14 +2108,6 @@ function setupEventListeners() {
     document.getElementById('modal-pooling').style.display = 'none';
   });
 });
-
-
-window.showAuthModal = showAuthModal;
-window.closeAuthModal = closeAuthModal;
-window.toggleAuthMode = toggleAuthMode;
-window.handleAuthSubmit = handleAuthSubmit;
-window.startQuiz = startQuiz;
-window.openDashboard = openDashboard;
 
   </script>
 </body>
