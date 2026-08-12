@@ -1,41 +1,12 @@
 /**
- * ============================================================================
- * TRAINING & PPC QUIZ - QUESTION DATABASE
- * ============================================================================
- * 
- * ΠΩΣ ΝΑ ΠΡΟΣΘΕΣΕΤΕ ΝΕΕΣ ΕΡΩΤΗΣΕΙΣ ΓΙΑ ΤΟ INVOICING:
- * ----------------------------------------------------------------------------
- * Αντιγράψτε το παρακάτω μπλοκ και προσθέστε το στη λίστα questions:
- * 
- * {
- *   "id": 104,
- *   "topic": "Invoicing",                  // "Invoicing" ή "Google Ads"
- *   "level": 1,
- *   "type": "multiple_choice",             // "multiple_choice" ή "true_false"
- *   "category": "Διαδικασίες",             // Κατηγορία
- *   "question": "Η ερώτησή σας εδώ;",
- *   "options": [
- *     "Επιλογή A",
- *     "Επιλογή B",
- *     "Επιλογή C",
- *     "Επιλογή D"
- *   ],
- *   "correct_answer": 0,                   // 0 για την 1η επιλογή, 1 για τη 2η κ.ο.κ.
- *   "explanation": "Επεξήγηση γιατί αυτή είναι η σωστή απάντηση."
- * },
- * ============================================================================
+ * PPC Quiz Game - Question Database
  */
-
 const STATIC_QUESTIONS = 
 {
   "metadata": {
     "lastUpdated": "2026-08-12",
-    "totalQuestions": 58,
-    "version": "3.1.0",
-    "courses": [
-      "Google Ads",
-      "Invoicing"
-    ]
+    "totalQuestions": 46,
+    "version": "1.1.0"
   },
   "questions": [
     {
@@ -49,8 +20,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 0,
-      "explanation": "Google Ads is indeed a PPC platform where advertisers pay each time a user clicks on their ad.",
-      "topic": "Google Ads"
+      "explanation": "Google Ads is indeed a PPC platform where advertisers pay each time a user clicks on their ad."
     },
     {
       "id": 2,
@@ -65,8 +35,7 @@ const STATIC_QUESTIONS =
         "Click Per Cost"
       ],
       "correct_answer": 0,
-      "explanation": "CPC stands for Cost Per Click, which is the amount you pay each time someone clicks on your ad.",
-      "topic": "Google Ads"
+      "explanation": "CPC stands for Cost Per Click, which is the amount you pay each time someone clicks on your ad."
     },
     {
       "id": 3,
@@ -79,8 +48,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 1,
-      "explanation": "There is no minimum budget requirement for Google Ads. You can start with any budget you're comfortable with.",
-      "topic": "Google Ads"
+      "explanation": "There is no minimum budget requirement for Google Ads. You can start with any budget you're comfortable with."
     },
     {
       "id": 4,
@@ -95,8 +63,7 @@ const STATIC_QUESTIONS =
         "Subscription model"
       ],
       "correct_answer": 1,
-      "explanation": "Google Ads historically uses a second-price auction model (now modified with Generalized Second Price), where you pay just enough to beat the next highest bidder.",
-      "topic": "Google Ads"
+      "explanation": "Google Ads historically uses a second-price auction model (now modified with Generalized Second Price), where you pay just enough to beat the next highest bidder."
     },
     {
       "id": 5,
@@ -111,8 +78,7 @@ const STATIC_QUESTIONS =
         "Organic"
       ],
       "correct_answer": 3,
-      "explanation": "Organic results are free, natural search results. Search, Display, and Shopping are all paid Google Ads campaign types.",
-      "topic": "Google Ads"
+      "explanation": "Organic results are free, natural search results. Search, Display, and Shopping are all paid Google Ads campaign types."
     },
     {
       "id": 6,
@@ -125,8 +91,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 0,
-      "explanation": "YouTube is part of Google's advertising network, and you can run Video campaigns that appear on YouTube through Google Ads.",
-      "topic": "Google Ads"
+      "explanation": "YouTube is part of Google's advertising network, and you can run Video campaigns that appear on YouTube through Google Ads."
     },
     {
       "id": 7,
@@ -141,8 +106,7 @@ const STATIC_QUESTIONS =
         "When your ad is approved"
       ],
       "correct_answer": 1,
-      "explanation": "An impression is counted each time your ad is shown (displayed) on a search result page or other site on the Google Network.",
-      "topic": "Google Ads"
+      "explanation": "An impression is counted each time your ad is shown (displayed) on a search result page or other site on the Google Network."
     },
     {
       "id": 8,
@@ -157,8 +121,7 @@ const STATIC_QUESTIONS =
         "Conversion Tracking Report"
       ],
       "correct_answer": 0,
-      "explanation": "CTR (Click Through Rate) is the percentage of people who click your ad after seeing it. It's calculated as clicks Γ· impressions Γ— 100.",
-      "topic": "Google Ads"
+      "explanation": "CTR (Click Through Rate) is the percentage of people who click your ad after seeing it. It's calculated as clicks Γ· impressions Γ— 100."
     },
     {
       "id": 9,
@@ -171,8 +134,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 1,
-      "explanation": "Google Ads keywords are not case-sensitive. 'Running Shoes' and 'running shoes' are treated the same.",
-      "topic": "Google Ads"
+      "explanation": "Google Ads keywords are not case-sensitive. 'Running Shoes' and 'running shoes' are treated the same."
     },
     {
       "id": 10,
@@ -187,8 +149,7 @@ const STATIC_QUESTIONS =
         "Only on Gmail"
       ],
       "correct_answer": 1,
-      "explanation": "Google Search Ads appear on Google search results pages and optionally on Google Search Partner sites.",
-      "topic": "Google Ads"
+      "explanation": "Google Search Ads appear on Google search results pages and optionally on Google Search Partner sites."
     },
     {
       "id": 11,
@@ -201,176 +162,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 0,
-      "explanation": "Quality Score is rated on a scale of 1 to 10, with 10 being the highest. It's based on expected CTR, ad relevance, and landing page experience.",
-      "topic": "Google Ads"
-    },
-    {
-      "id": 12,
-      "level": 2,
-      "type": "multiple_choice",
-      "category": "Campaign Types",
-      "question": "Which campaign type is best for reaching users who are actively searching for your products or services?",
-      "options": [
-        "Display campaign",
-        "Search campaign",
-        "Discovery campaign",
-        "Video campaign"
-      ],
-      "correct_answer": 1,
-      "explanation": "Search campaigns show ads to people actively searching for your keywords, making them ideal for capturing high-intent users.",
-      "topic": "Google Ads"
-    },
-    {
-      "id": 13,
-      "level": 2,
-      "type": "multiple_choice",
-      "category": "Bidding",
-      "question": "Which bidding strategy automatically sets bids to get as many conversions as possible within your budget?",
-      "options": [
-        "Manual CPC",
-        "Maximize Conversions",
-        "Target Impression Share",
-        "CPV bidding"
-      ],
-      "correct_answer": 1,
-      "explanation": "Maximize Conversions is a Smart Bidding strategy that automatically sets bids to help get the most conversions within your budget.",
-      "topic": "Google Ads"
-    },
-    {
-      "id": 14,
-      "level": 2,
-      "type": "true_false",
-      "category": "Keywords",
-      "question": "Broad match keywords can trigger your ad for searches that don't contain your keyword terms at all.",
-      "options": [
-        "True",
-        "False"
-      ],
-      "correct_answer": 0,
-      "explanation": "Broad match can show your ads for searches related to your keyword, even if they don't contain the exact keyword terms. Google uses AI to understand intent.",
-      "topic": "Google Ads"
-    },
-    {
-      "id": 15,
-      "level": 2,
-      "type": "multiple_choice",
-      "category": "Keywords",
-      "question": "What symbol is used to indicate a phrase match keyword in Google Ads?",
-      "options": [
-        "[keyword]",
-        "+keyword",
-        "\"keyword\"",
-        "-keyword"
-      ],
-      "correct_answer": 2,
-      "explanation": "Phrase match keywords are wrapped in quotation marks (\"keyword\"). Ads may show for searches that include the meaning of your keyword.",
-      "topic": "Google Ads"
-    },
-    {
-      "id": 16,
-      "level": 2,
-      "type": "multiple_choice",
-      "category": "Campaign Types",
-      "question": "What is the Google Display Network (GDN)?",
-      "options": [
-        "Google's search engine",
-        "A network of websites that show Google Ads display ads",
-        "Google's social media platform",
-        "Google's email service"
-      ],
-      "correct_answer": 1,
-      "explanation": "The GDN is a collection of over 2 million websites, videos, and apps where your Display ads can appear, reaching over 90% of internet users.",
-      "topic": "Google Ads"
-    },
-    {
-      "id": 17,
-      "level": 2,
-      "type": "true_false",
-      "category": "Ad Formats",
-      "question": "Responsive Search Ads (RSAs) allow you to provide multiple headlines and descriptions that Google mixes and matches.",
-      "options": [
-        "True",
-        "False"
-      ],
-      "correct_answer": 0,
-      "explanation": "RSAs let you provide up to 15 headlines and 4 descriptions. Google automatically tests combinations and learns which perform best.",
-      "topic": "Google Ads"
-    },
-    {
-      "id": 18,
-      "level": 2,
-      "type": "multiple_choice",
-      "category": "Bidding",
-      "question": "What is 'Target CPA' bidding?",
-      "options": [
-        "Setting a target cost per click",
-        "Setting a target cost per acquisition/conversion",
-        "Setting a target cost per ad group",
-        "Setting a target click-through rate"
-      ],
-      "correct_answer": 1,
-      "explanation": "Target CPA (Cost Per Acquisition) is a Smart Bidding strategy that sets bids to get as many conversions as possible at or below the target cost per conversion you set.",
-      "topic": "Google Ads"
-    },
-    {
-      "id": 19,
-      "level": 2,
-      "type": "multiple_choice",
-      "category": "Keywords",
-      "question": "What are negative keywords used for?",
-      "options": [
-        "To increase ad rank",
-        "To prevent ads from showing for irrelevant searches",
-        "To target competitor brands",
-        "To lower Quality Score"
-      ],
-      "correct_answer": 1,
-      "explanation": "Negative keywords prevent your ads from showing for specific search terms, helping you avoid irrelevant clicks and wasted spend.",
-      "topic": "Google Ads"
-    },
-    {
-      "id": 20,
-      "level": 2,
-      "type": "true_false",
-      "category": "Campaign Types",
-      "question": "Performance Max campaigns use AI to serve ads across all Google channels from a single campaign.",
-      "options": [
-        "True",
-        "False"
-      ],
-      "correct_answer": 0,
-      "explanation": "Performance Max (PMax) campaigns use Google's AI to optimize across Search, Display, YouTube, Gmail, Maps, and Discover from one campaign.",
-      "topic": "Google Ads"
-    },
-    {
-      "id": 21,
-      "level": 2,
-      "type": "multiple_choice",
-      "category": "Ad Formats",
-      "question": "How many headlines can you provide in a Responsive Search Ad?",
-      "options": [
-        "3",
-        "5",
-        "10",
-        "15"
-      ],
-      "correct_answer": 3,
-      "explanation": "You can provide up to 15 headlines in a Responsive Search Ad. Google will show up to 3 at a time in different combinations.",
-      "topic": "Google Ads"
-    },
-    {
-      "id": 22,
-      "level": 2,
-      "type": "true_false",
-      "category": "Basics",
-      "question": "Ad Rank determines your ad's position and is calculated using only your bid amount.",
-      "options": [
-        "True",
-        "False"
-      ],
-      "correct_answer": 1,
-      "explanation": "Ad Rank is calculated using your bid, Quality Score (expected CTR, ad relevance, landing page experience), ad extensions, and other factors.",
-      "topic": "Google Ads"
+      "explanation": "Quality Score is rated on a scale of 1 to 10, with 10 being the highest. It's based on expected CTR, ad relevance, and landing page experience."
     },
     {
       "id": 23,
@@ -385,8 +177,7 @@ const STATIC_QUESTIONS =
         "Budget size"
       ],
       "correct_answer": 3,
-      "explanation": "Quality Score is based on three components: expected CTR, ad relevance, and landing page experience. Budget size does not affect Quality Score.",
-      "topic": "Google Ads"
+      "explanation": "Quality Score is based on three components: expected CTR, ad relevance, and landing page experience. Budget size does not affect Quality Score."
     },
     {
       "id": 24,
@@ -401,8 +192,7 @@ const STATIC_QUESTIONS =
         "Add more keywords"
       ],
       "correct_answer": 2,
-      "explanation": "A low Quality Score typically indicates poor ad relevance or landing page experience. Improving these factors is the most effective approach.",
-      "topic": "Google Ads"
+      "explanation": "A low Quality Score typically indicates poor ad relevance or landing page experience. Improving these factors is the most effective approach."
     },
     {
       "id": 25,
@@ -415,8 +205,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 0,
-      "explanation": "Ad extensions contribute to Ad Rank. Google factors in the expected impact of extensions, so using them can improve your position without raising bids.",
-      "topic": "Google Ads"
+      "explanation": "Ad extensions contribute to Ad Rank. Google factors in the expected impact of extensions, so using them can improve your position without raising bids."
     },
     {
       "id": 26,
@@ -431,8 +220,7 @@ const STATIC_QUESTIONS =
         "Price extensions"
       ],
       "correct_answer": 1,
-      "explanation": "Sitelink extensions display additional links below your ad, directing users to specific pages like 'Contact Us', 'Pricing', etc.",
-      "topic": "Google Ads"
+      "explanation": "Sitelink extensions display additional links below your ad, directing users to specific pages like 'Contact Us', 'Pricing', etc."
     },
     {
       "id": 27,
@@ -447,8 +235,7 @@ const STATIC_QUESTIONS =
         "The percentage of budget spent on search"
       ],
       "correct_answer": 1,
-      "explanation": "Search Impression Share is the percentage of impressions your ads received divided by the total number of impressions they were eligible to receive.",
-      "topic": "Google Ads"
+      "explanation": "Search Impression Share is the percentage of impressions your ads received divided by the total number of impressions they were eligible to receive."
     },
     {
       "id": 28,
@@ -461,8 +248,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 0,
-      "explanation": "Impression share can be lost due to budget (IS Lost to Budget) or rank (IS Lost to Rank). Budget-related loss means you need more budget; rank-related loss means better Quality Score or bids.",
-      "topic": "Google Ads"
+      "explanation": "Impression share can be lost due to budget (IS Lost to Budget) or rank (IS Lost to Rank). Budget-related loss means you need more budget; rank-related loss means better Quality Score or bids."
     },
     {
       "id": 29,
@@ -477,8 +263,7 @@ const STATIC_QUESTIONS =
         "People who have already purchased from you"
       ],
       "correct_answer": 1,
-      "explanation": "In-Market audiences are groups of users that Google identifies as actively researching or comparing products/services, showing strong purchase intent.",
-      "topic": "Google Ads"
+      "explanation": "In-Market audiences are groups of users that Google identifies as actively researching or comparing products/services, showing strong purchase intent."
     },
     {
       "id": 30,
@@ -493,8 +278,7 @@ const STATIC_QUESTIONS =
         "To improve ad quality"
       ],
       "correct_answer": 1,
-      "explanation": "The conversion tracking tag (placed on your website) tracks valuable actions users take after clicking your ad, such as purchases, sign-ups, or calls.",
-      "topic": "Google Ads"
+      "explanation": "The conversion tracking tag (placed on your website) tracks valuable actions users take after clicking your ad, such as purchases, sign-ups, or calls."
     },
     {
       "id": 31,
@@ -507,8 +291,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 0,
-      "explanation": "A/B testing (or split testing) different ad variations helps identify which messaging resonates best with your audience, improving overall campaign performance.",
-      "topic": "Google Ads"
+      "explanation": "A/B testing (or split testing) different ad variations helps identify which messaging resonates best with your audience, improving overall campaign performance."
     },
     {
       "id": 32,
@@ -523,8 +306,7 @@ const STATIC_QUESTIONS =
         "A list of competitor domains"
       ],
       "correct_answer": 2,
-      "explanation": "Remarketing lists are collections of users who have previously visited your website or app, allowing you to show targeted ads as they browse online.",
-      "topic": "Google Ads"
+      "explanation": "Remarketing lists are collections of users who have previously visited your website or app, allowing you to show targeted ads as they browse online."
     },
     {
       "id": 33,
@@ -537,8 +319,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 0,
-      "explanation": "Landing page experience is a component of Quality Score, and page speed is a factor in landing page experience. Faster pages tend to earn better scores.",
-      "topic": "Google Ads"
+      "explanation": "Landing page experience is a component of Quality Score, and page speed is a factor in landing page experience. Faster pages tend to earn better scores."
     },
     {
       "id": 34,
@@ -553,8 +334,7 @@ const STATIC_QUESTIONS =
         "Target CPA is manual, Target ROAS is automated"
       ],
       "correct_answer": 1,
-      "explanation": "Target CPA aims to get conversions at a target cost, while Target ROAS aims to achieve a target return on ad spend (revenue generated per dollar spent).",
-      "topic": "Google Ads"
+      "explanation": "Target CPA aims to get conversions at a target cost, while Target ROAS aims to achieve a target return on ad spend (revenue generated per dollar spent)."
     },
     {
       "id": 35,
@@ -567,8 +347,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 0,
-      "explanation": "Google Ads switched to data-driven attribution as the default model, replacing last-click attribution. It uses machine learning to credit touchpoints based on their actual impact.",
-      "topic": "Google Ads"
+      "explanation": "Google Ads switched to data-driven attribution as the default model, replacing last-click attribution. It uses machine learning to credit touchpoints based on their actual impact."
     },
     {
       "id": 36,
@@ -583,8 +362,7 @@ const STATIC_QUESTIONS =
         "Priority customer support"
       ],
       "correct_answer": 1,
-      "explanation": "Portfolio bid strategies optimize performance across multiple campaigns, ad groups, and keywords as a group, allowing better overall performance management.",
-      "topic": "Google Ads"
+      "explanation": "Portfolio bid strategies optimize performance across multiple campaigns, ad groups, and keywords as a group, allowing better overall performance management."
     },
     {
       "id": 37,
@@ -599,8 +377,7 @@ const STATIC_QUESTIONS =
         "The highest CTR"
       ],
       "correct_answer": 1,
-      "explanation": "Maximize Conversion Value sets bids to maximize total conversion value within your budget, rather than just the number of conversions.",
-      "topic": "Google Ads"
+      "explanation": "Maximize Conversion Value sets bids to maximize total conversion value within your budget, rather than just the number of conversions."
     },
     {
       "id": 38,
@@ -613,8 +390,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 0,
-      "explanation": "Google Ads scripts use JavaScript to automate tasks like bid changes, report generation, and account management directly within the Google Ads interface.",
-      "topic": "Google Ads"
+      "explanation": "Google Ads scripts use JavaScript to automate tasks like bid changes, report generation, and account management directly within the Google Ads interface."
     },
     {
       "id": 39,
@@ -629,8 +405,7 @@ const STATIC_QUESTIONS =
         "Distributes credit equally across all touchpoints"
       ],
       "correct_answer": 2,
-      "explanation": "Time decay attribution gives increasing credit to interactions that happen closer in time to the conversion, recognizing that recent touchpoints often have more influence.",
-      "topic": "Google Ads"
+      "explanation": "Time decay attribution gives increasing credit to interactions that happen closer in time to the conversion, recognizing that recent touchpoints often have more influence."
     },
     {
       "id": 40,
@@ -645,8 +420,7 @@ const STATIC_QUESTIONS =
         "Automatic audience creation"
       ],
       "correct_answer": 1,
-      "explanation": "Customer Match lets you upload customer data (emails, phone numbers) to create targeted audience segments for your campaigns across Search, Shopping, Gmail, and YouTube.",
-      "topic": "Google Ads"
+      "explanation": "Customer Match lets you upload customer data (emails, phone numbers) to create targeted audience segments for your campaigns across Search, Shopping, Gmail, and YouTube."
     },
     {
       "id": 41,
@@ -659,8 +433,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 0,
-      "explanation": "Automated rules let you set conditions and actions (e.g., 'If CPA > $50, reduce bid by 10%') that execute automatically at specified times.",
-      "topic": "Google Ads"
+      "explanation": "Automated rules let you set conditions and actions (e.g., 'If CPA > $50, reduce bid by 10%') that execute automatically at specified times."
     },
     {
       "id": 42,
@@ -675,8 +448,7 @@ const STATIC_QUESTIONS =
         "A premium conversion tracking feature"
       ],
       "correct_answer": 1,
-      "explanation": "Enhanced conversions improve measurement accuracy by sending hashed first-party customer data (email, phone) alongside conversion tags, helping match conversions in a privacy-safe way.",
-      "topic": "Google Ads"
+      "explanation": "Enhanced conversions improve measurement accuracy by sending hashed first-party customer data (email, phone) alongside conversion tags, helping match conversions in a privacy-safe way."
     },
     {
       "id": 43,
@@ -689,8 +461,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 0,
-      "explanation": "Smart Bidding uses real-time auction-time signals including device, location, time of day, OS, browser, remarketing list, and many more to optimize every single bid.",
-      "topic": "Google Ads"
+      "explanation": "Smart Bidding uses real-time auction-time signals including device, location, time of day, OS, browser, remarketing list, and many more to optimize every single bid."
     },
     {
       "id": 44,
@@ -705,8 +476,7 @@ const STATIC_QUESTIONS =
         "6 months"
       ],
       "correct_answer": 1,
-      "explanation": "Smart Bidding typically needs 1-2 weeks (or about 30-50 conversions) to gather enough data. Making changes during this learning period can reset the process.",
-      "topic": "Google Ads"
+      "explanation": "Smart Bidding typically needs 1-2 weeks (or about 30-50 conversions) to gather enough data. Making changes during this learning period can reset the process."
     },
     {
       "id": 45,
@@ -721,8 +491,7 @@ const STATIC_QUESTIONS =
         "Pause all campaigns and restart with new keywords"
       ],
       "correct_answer": 1,
-      "explanation": "Scaling with Target ROAS while gradually increasing the target allows you to grow profitably. Switching to Maximize Clicks would sacrifice profitability.",
-      "topic": "Google Ads"
+      "explanation": "Scaling with Target ROAS while gradually increasing the target allows you to grow profitably. Switching to Maximize Clicks would sacrifice profitability."
     },
     {
       "id": 46,
@@ -737,8 +506,7 @@ const STATIC_QUESTIONS =
         "Switch to broad match for all keywords"
       ],
       "correct_answer": 1,
-      "explanation": "Impression share lost to rank indicates Quality Score or bid issues. Improving Quality Score is the most sustainable and cost-effective first step before increasing bids.",
-      "topic": "Google Ads"
+      "explanation": "Impression share lost to rank indicates Quality Score or bid issues. Improving Quality Score is the most sustainable and cost-effective first step before increasing bids."
     },
     {
       "id": 47,
@@ -751,8 +519,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 1,
-      "explanation": "Brand campaigns protect against competitor bidding on your terms, control messaging, provide incremental clicks, and typically have very high Quality Scores and low CPCs.",
-      "topic": "Google Ads"
+      "explanation": "Brand campaigns protect against competitor bidding on your terms, control messaging, provide incremental clicks, and typically have very high Quality Scores and low CPCs."
     },
     {
       "id": 48,
@@ -767,8 +534,7 @@ const STATIC_QUESTIONS =
         "Reduce the budget by 50%"
       ],
       "correct_answer": 0,
-      "explanation": "Auction Insights reveals competitive pressure changes. Rising CPAs often correlate with new competitors entering the auction. This informs whether to adjust bids, refine targeting, or differentiate messaging.",
-      "topic": "Google Ads"
+      "explanation": "Auction Insights reveals competitive pressure changes. Rising CPAs often correlate with new competitors entering the auction. This informs whether to adjust bids, refine targeting, or differentiate messaging."
     },
     {
       "id": 49,
@@ -783,8 +549,7 @@ const STATIC_QUESTIONS =
         "Video campaigns only"
       ],
       "correct_answer": 1,
-      "explanation": "Performance Max handles product feed and cross-channel coverage efficiently, while branded Search campaigns maintain control over brand terms and messaging.",
-      "topic": "Google Ads"
+      "explanation": "Performance Max handles product feed and cross-channel coverage efficiently, while branded Search campaigns maintain control over brand terms and messaging."
     },
     {
       "id": 50,
@@ -797,8 +562,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 0,
-      "explanation": "Google recommends pairing broad match with Smart Bidding because Smart Bidding's real-time signals help filter relevant queries, while broad match maximizes reach and finds new converting queries.",
-      "topic": "Google Ads"
+      "explanation": "Google recommends pairing broad match with Smart Bidding because Smart Bidding's real-time signals help filter relevant queries, while broad match maximizes reach and finds new converting queries."
     },
     {
       "id": 51,
@@ -813,8 +577,7 @@ const STATIC_QUESTIONS =
         "Ask customers how they found you"
       ],
       "correct_answer": 1,
-      "explanation": "Geo-based experiments (geo-lift tests) are the gold standard for measuring incrementality. They compare performance in test vs. control regions to determine true causal impact.",
-      "topic": "Google Ads"
+      "explanation": "Geo-based experiments (geo-lift tests) are the gold standard for measuring incrementality. They compare performance in test vs. control regions to determine true causal impact."
     },
     {
       "id": 52,
@@ -829,8 +592,7 @@ const STATIC_QUESTIONS =
         "Linear attribution with clicks as conversions"
       ],
       "correct_answer": 1,
-      "explanation": "Long sales cycles require data-driven attribution to properly credit touchpoints, combined with micro-conversions to optimize for early funnel signals alongside final deal closures.",
-      "topic": "Google Ads"
+      "explanation": "Long sales cycles require data-driven attribution to properly credit touchpoints, combined with micro-conversions to optimize for early funnel signals alongside final deal closures."
     },
     {
       "id": 53,
@@ -843,8 +605,7 @@ const STATIC_QUESTIONS =
         "False"
       ],
       "correct_answer": 0,
-      "explanation": "Importing offline conversion data (via GCLID matching or enhanced conversions for leads) allows Smart Bidding to optimize for real business outcomes, not just online proxies.",
-      "topic": "Google Ads"
+      "explanation": "Importing offline conversion data (via GCLID matching or enhanced conversions for leads) allows Smart Bidding to optimize for real business outcomes, not just online proxies."
     },
     {
       "id": 54,
@@ -859,29 +620,12 @@ const STATIC_QUESTIONS =
         "Designing landing pages"
       ],
       "correct_answer": 1,
-      "explanation": "The Google Tag (gtag.js) is a JavaScript tagging framework used to send event data to Google Ads, Google Analytics, and other Google products from your website.",
-      "topic": "Google Ads"
+      "explanation": "The Google Tag (gtag.js) is a JavaScript tagging framework used to send event data to Google Ads, Google Analytics, and other Google products from your website."
     },
     {
-      "id": 55,
+      "id": 201,
       "level": 2,
-      "type": "multiple_choice",
-      "category": "Campaign Types",
-      "question": "What type of ads does a Shopping campaign display?",
-      "options": [
-        "Text-only ads",
-        "Product listings with image, price, and store name",
-        "Video ads",
-        "Banner ads"
-      ],
-      "correct_answer": 1,
-      "explanation": "Shopping campaigns display product listing ads (PLAs) that show a product image, price, store name, and other details pulled from your Merchant Center product feed.",
-      "topic": "Google Ads"
-    },
-    {
-      "id": 101,
       "topic": "Invoicing",
-      "level": 1,
       "type": "multiple_choice",
       "category": "PO & Approvals",
       "question": "Ποιο έγγραφο είναι απαραίτητο πριν από την έκδοση τιμολογίου προς πελάτη;",
@@ -895,9 +639,9 @@ const STATIC_QUESTIONS =
       "explanation": "Κάθε έκδοση τιμολογίου απαιτεί επίσημο PO ή υπογεγραμμένη έγκριση budget/SOW για συμβατική κάλυψη."
     },
     {
-      "id": 102,
+      "id": 202,
+      "level": 2,
       "topic": "Invoicing",
-      "level": 1,
       "type": "true_false",
       "category": "VAT & Taxes",
       "question": "Στις ενδοκοινοτικές συναλλαγές B2B (με έγκυρο VIES εντός Ε.Ε.), εφαρμόζεται απαλλαγή ΦΠΑ (Reverse Charge).",
@@ -909,9 +653,9 @@ const STATIC_QUESTIONS =
       "explanation": "Στις ενδοκοινοτικές παροχές υπηρεσιών B2B με έγκυρο ευρωπαϊκό ΑΦΜ, ισχύει αντιστροφή της υποχρέωσης (Reverse Charge)."
     },
     {
-      "id": 103,
+      "id": 203,
+      "level": 2,
       "topic": "Invoicing",
-      "level": 1,
       "type": "multiple_choice",
       "category": "Payment Terms",
       "question": "Τι σημαίνει ο όρος πληρωμής 'Net 30 Days';",
