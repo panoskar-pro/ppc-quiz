@@ -171,7 +171,7 @@ function closeAuthModal() {
   document.getElementById('modal-auth').style.display = 'none';
 }
 
-async function handleAuthSubmit() {
+async async function handleAuthSubmit() {
   const email = document.getElementById('auth-email').value.trim();
   const password = document.getElementById('auth-password').value;
   const verifyPassword = document.getElementById('auth-verify-password').value;
