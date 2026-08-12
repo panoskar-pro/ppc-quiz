@@ -347,56 +347,9 @@ function renderDashboard() {
   renderBadges();
 }
 
-function renderLevelGrid() {
-  const grid = document.getElementById('level-grid');
-  if (!grid) return;
-  grid.innerHTML = '';
 
-  APP.levels.forEach((level) => {
-    const isUnlocked = isLevelUnlocked(level.level);
-    const card = document.createElement('div');
-    card.className = `level-card glass-card ${isUnlocked ? '' : 'level-locked'}`;
-    card.style.setProperty('--level-color', level.color);
-    card.innerHTML = `
-      <style>.level-card[style*="${level.color}"]::before { background: ${level.color}; }</style>
-      <div class="level-card-header">
-        <span class="level-card-icon">${isUnlocked ? level.icon : '🔒'}</span>
-        <div>
-          <div class="level-card-title">${level.name}</div>
-          <div class="level-card-number">Level ${level.level}</div>
-        </div>
-      </div>
-      <div class="level-card-desc">${level.description}</div>
-      <div class="level-card-footer">
-        <span class="level-card-questions">📝 ${level.totalQuestions} questions</span>
-        ${isUnlocked ? '<span style="color:' + level.color + '">Play →</span>' : '<span class="level-lock-icon">🔒 Locked</span>'}
-      </div>
-    `;
 
-    if (isUnlocked) {
-      card.addEventListener('click', () => startQuiz(level.level));
-    }
 
-    grid.appendChild(card);
-  });
-}
-
-function isLevelUnlocked(level) {
-  if (level === 1) return true;
-  const p = APP.profile;
-
-  const levelDef = APP.levels.find((l) => l.level === level);
-  if (!levelDef) return false;
-  if (p.xp < levelDef.xpRequired) return false;
-
-  const prevLevelKey = `level_${level - 1}`;
-  const prevScore = p.stats.levelScores[prevLevelKey];
-  if (!prevScore) return false;
-
-  const prevLevelDef = APP.levels.find((l) => l.level === level);
-  const requiredAccuracy = prevLevelDef ? prevLevelDef.accuracyToUnlock : 70;
-  return prevScore.bestAccuracy >= requiredAccuracy;
-}
 
 function renderBadges() {
   const grid = document.getElementById('badges-grid');
