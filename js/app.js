@@ -726,7 +726,7 @@ function handlePoolQuestions() {
 }
 
 // ============ EVENT LISTENERS ============
-document.addEventListener('DOMContentLoaded', () => {
+function setupEventListeners() {
   // Auth Screen bounds
   document.getElementById('btn-show-auth').addEventListener('click', showAuthModal);
   document.getElementById('btn-close-auth').addEventListener('click', closeAuthModal);
@@ -785,3 +785,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('modal-pooling').style.display = 'none';
   });
 });
+
+
+window.showAuthModal = showAuthModal;
+window.closeAuthModal = closeAuthModal;
+window.toggleAuthMode = toggleAuthMode;
+window.handleAuthSubmit = handleAuthSubmit;
+window.startQuiz = startQuiz;
+window.openDashboard = openDashboard;
