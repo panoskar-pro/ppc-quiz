@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=3.0">
+  <link rel="stylesheet" href="css/style.css?v=3.2">
 </head>
 <body>
   <canvas id="particles-canvas"></canvas>
@@ -121,10 +121,40 @@
       </div>
     </div>
 
-    <!-- Level Selection -->
-    <h2 class="section-title">Choose Your Level</h2>
-    <div class="level-grid" id="level-grid">
-      <!-- Populated by JS -->
+        <!-- Course Selection -->
+    <h2 class="section-title">Choose Your Course</h2>
+    <div class="course-grid" id="course-grid">
+      <div class="course-card glass-card" data-course="Invoicing">
+        <div class="course-card-glow" style="background: var(--gradient-green);"></div>
+        <div class="course-card-header">
+          <span class="course-icon">🧾</span>
+          <div>
+            <h3 class="course-title">Invoicing & Procedures</h3>
+            <span class="course-badge">Company Training</span>
+          </div>
+        </div>
+        <p class="course-desc">Διαδικασίες τιμολόγησης, PO, εγκρίσεις, billing & reconciliation</p>
+        <div class="course-card-footer">
+          <span class="course-count" id="count-invoicing">3 Questions</span>
+          <span class="course-action" style="color: var(--accent-green);">Start Course →</span>
+        </div>
+      </div>
+
+      <div class="course-card glass-card" data-course="Google Ads">
+        <div class="course-card-glow" style="background: var(--gradient-primary);"></div>
+        <div class="course-card-header">
+          <span class="course-icon">🎯</span>
+          <div>
+            <h3 class="course-title">Google Ads (PPC)</h3>
+            <span class="course-badge">Performance Marketing</span>
+          </div>
+        </div>
+        <p class="course-desc">Search, Shopping, Performance Max, Smart Bidding, Quality Score & Strategy</p>
+        <div class="course-card-footer">
+          <span class="course-count" id="count-google">55 Questions</span>
+          <span class="course-action" style="color: var(--accent-blue);">Start Course →</span>
+        </div>
+      </div>
     </div>
 
     <!-- Badges -->
@@ -309,8 +339,8 @@
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
 
-  <script src="js/particles.js?v=3.0"></script>
-  <script src="js/questions.js?v=3.0"></script>
-  <script src="js/app.js?v=3.0"></script>
+  <script src="js/particles.js?v=3.2"></script>
+  <script src="js/questions.js?v=3.2"></script>
+  <script src="js/app.js?v=3.2"></script>
 </body>
 </html>

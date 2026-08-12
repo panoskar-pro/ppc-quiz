@@ -308,6 +308,17 @@ function renderDashboard() {
   const p = APP.profile;
   if (!p) return;
 
+  // Update Course Question Counts
+  if (typeof STATIC_QUESTIONS !== 'undefined' && STATIC_QUESTIONS.questions) {
+    const invCount = STATIC_QUESTIONS.questions.filter(q => q.topic === 'Invoicing').length;
+    const gCount = STATIC_QUESTIONS.questions.filter(q => q.topic === 'Google Ads' || !q.topic).length;
+
+    const elInv = document.getElementById('count-invoicing');
+    const elG = document.getElementById('count-google');
+    if (elInv) elInv.textContent = `${invCount} Questions`;
+    if (elG) elG.textContent = `${gCount} Questions`;
+  }
+
   document.getElementById('dash-avatar').textContent = getInitials(p.name);
   document.getElementById('dash-name').textContent = p.name;
   const levelInfo = APP.levels.find((l) => l.level === p.currentLevel);
@@ -478,19 +489,39 @@ function createLeaderboardRow(rank, name, xp, level) {
 }
 
 // ============ QUIZ ENGINE ============
-async function startQuiz(level) {
+async function startQuiz(courseTopic = 'Google Ads') {
   try {
-    let levelQuestions = STATIC_QUESTIONS.questions.filter(q => q.level === level);
-    levelQuestions = levelQuestions.sort(() => Math.random() - 0.5).slice(0, 10);
+    let allQ = [];
+    if (typeof STATIC_QUESTIONS !== 'undefined' && Array.isArray(STATIC_QUESTIONS.questions)) {
+      allQ = STATIC_QUESTIONS.questions;
+    } else {
+      showToast('Questions database error', 'error');
+      return;
+    }
 
-    if (levelQuestions.length === 0) {
-      showToast('No questions available for this level!', 'error');
+    let pool = [];
+    if (!courseTopic || courseTopic === 'all') {
+      pool = [...allQ];
+    } else {
+      const targetTopic = courseTopic.toLowerCase().trim();
+      pool = allQ.filter(q => (q.topic && q.topic.toLowerCase().trim() === targetTopic) || (!q.topic && targetTopic === 'google ads'));
+    }
+
+    if (pool.length === 0) {
+      pool = [...allQ];
+    }
+
+    let quizQuestions = pool.sort(() => Math.random() - 0.5).slice(0, 10);
+
+    if (quizQuestions.length === 0) {
+      showToast('No questions available for this course!', 'error');
       return;
     }
 
     APP.currentQuiz = {
-      level: level,
-      questions: levelQuestions,
+      topic: courseTopic,
+      level: (APP.profile && APP.profile.currentLevel) ? APP.profile.currentLevel : 1,
+      questions: quizQuestions,
       currentIndex: 0,
       answers: [],
       streak: 0,
@@ -501,6 +532,7 @@ async function startQuiz(level) {
     showScreen('quiz');
     renderQuestion();
   } catch (e) {
+    console.error(e);
     showToast('Failed to load questions.', 'error');
   }
 }
@@ -516,9 +548,9 @@ function renderQuestion() {
   const fire = document.getElementById('streak-fire');
   fire.style.opacity = quiz.streak > 0 ? '1' : '0.3';
 
-  const levelDef = APP.levels.find((l) => l.level === quiz.level);
-  document.getElementById('quiz-level-label').textContent = `Level ${quiz.level} — ${levelDef ? levelDef.name : ''}`;
-  document.getElementById('quiz-category').textContent = q.category;
+  const icon = (q.topic === 'Invoicing') ? '🧾 ' : '🎯 ';
+  document.getElementById('quiz-level-label').textContent = `${icon}${q.topic || 'Google Ads'}`;
+  document.getElementById('quiz-category').textContent = q.category || 'Fundamentals';
   document.getElementById('question-type-badge').textContent = q.type === 'true_false' ? 'True / False' : 'Multiple Choice';
   document.getElementById('question-text').textContent = q.question;
 
@@ -767,6 +799,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Enter key on inputs
   document.getElementById('auth-password').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleAuthSubmit(); });
 
+  // Course Selection Cards
+  document.querySelectorAll('.course-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const course = card.getAttribute('data-course') || 'Google Ads';
+      startQuiz(course);
+    });
+  });
+
   // Dashboard
   document.getElementById('btn-pool-questions').addEventListener('click', handlePoolQuestions);
   document.getElementById('btn-logout').addEventListener('click', handleLogout);
@@ -777,7 +817,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-next-question').addEventListener('click', handleNextQuestion);
 
   // Results
-  document.getElementById('btn-retry').addEventListener('click', () => { if (APP.currentQuiz) startQuiz(APP.currentQuiz.level); });
+  document.getElementById('btn-retry').addEventListener('click', () => { if (APP.currentQuiz) startQuiz(APP.currentQuiz.topic); });
   document.getElementById('btn-back-dashboard').addEventListener('click', openDashboard);
 
   // Leaderboard Modals
