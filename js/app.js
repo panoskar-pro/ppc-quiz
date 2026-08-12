@@ -173,66 +173,87 @@ function closeAuthModal() {
 }
 
 async async function handleAuthSubmit() {
-  const email = document.getElementById('auth-email').value.trim();
-  const password = document.getElementById('auth-password').value;
-  const verifyPassword = document.getElementById('auth-verify-password').value;
-  const name = document.getElementById('auth-name').value.trim();
+  const emailEl = document.getElementById('auth-email');
+  const passwordEl = document.getElementById('auth-password');
+  const verifyPasswordEl = document.getElementById('auth-verify-password');
+  const nameEl = document.getElementById('auth-name');
   const errorEl = document.getElementById('auth-error');
   const btn = document.getElementById('btn-auth-submit');
 
-  errorEl.style.display = 'none';
+  const email = emailEl ? emailEl.value.trim() : '';
+  const password = passwordEl ? passwordEl.value : '';
+  const verifyPassword = verifyPasswordEl ? verifyPasswordEl.value : '';
+  const name = nameEl ? nameEl.value.trim() : '';
+
+  if (errorEl) errorEl.style.display = 'none';
 
   if (!email || !password) {
-    errorEl.textContent = "Please fill in all fields.";
-    errorEl.style.display = 'block';
+    if (errorEl) {
+      errorEl.textContent = "Παρακαλώ συμπληρώστε Email και Κωδικό.";
+      errorEl.style.display = 'block';
+    }
     return;
   }
 
   if (APP.authMode === 'register') {
     if (password !== verifyPassword) {
-      errorEl.textContent = "Passwords do not match.";
-      errorEl.style.display = 'block';
+      if (errorEl) {
+        errorEl.textContent = "Οι κωδικοί δεν ταιριάζουν.";
+        errorEl.style.display = 'block';
+      }
       return;
     }
 
     if (password.length < 6) {
-      errorEl.textContent = "Password must be at least 6 characters long.";
-      errorEl.style.display = 'block';
+      if (errorEl) {
+        errorEl.textContent = "Ο κωδικός πρέπει να έχει τουλάχιστον 6 χαρακτήρες.";
+        errorEl.style.display = 'block';
+      }
       return;
     }
   }
 
-  // Whitelist restriction check (only necessary for registration, not login)
-  if (APP.authMode === 'register') {
-    const isAllowed = ALLOWED_EMAILS.map(e => e.toLowerCase()).includes(email.toLowerCase());
-    if (!isAllowed) {
-      errorEl.textContent = "Access denied: Your exact email address is not on the authorized team list.";
-      errorEl.style.display = 'block';
-      return;
-    }
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "Σύνδεση...";
   }
-
-  btn.disabled = true;
-  btn.textContent = "Processing...";
 
   try {
     if (APP.authMode === 'login') {
       await auth.signInWithEmailAndPassword(email, password);
     } else {
       if (!name) {
-        throw new Error("Display name is required for registration.");
+        throw new Error("Παρακαλώ συμπληρώστε Όνομα Εμφάνισης.");
       }
       const userCred = await auth.createUserWithEmailAndPassword(email, password);
       await createProfileDoc(userCred.user, name);
     }
-    // Success is handled by onAuthStateChanged
   } catch (error) {
-    errorEl.textContent = error.message;
-    errorEl.style.display = 'block';
-    btn.disabled = false;
-    btn.textContent = APP.authMode === 'login' ? 'Sign In' : 'Register';
+    console.error("Auth Exception:", error);
+    let msg = error.message;
+    if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+      msg = "Λάθος email ή κωδικός πρόσβασης. Αν δεν έχετε λογαριασμό, πατήστε κάτω στο Register.";
+    } else if (error.code === 'auth/email-already-in-use') {
+      msg = "Υπάρχει ήδη λογαριασμός με αυτό το email. Πατήστε Sign In.";
+    } else if (error.code === 'auth/requests-from-referer-null-are-blocked') {
+      msg = "Σφάλμα: Η σύνδεση πρέπει να γίνεται από το live link https://panoskar-pro.github.io/ppc-quiz/";
+    }
+
+    if (errorEl) {
+      errorEl.textContent = msg;
+      errorEl.style.display = 'block';
+    } else {
+      alert(msg);
+    }
+
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = APP.authMode === 'login' ? 'Sign In' : 'Register';
+    }
   }
 }
+window.handleAuthSubmit = handleAuthSubmit;
+
 
 function handleLogout() {
   auth.signOut();
