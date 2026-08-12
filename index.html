@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=6.0">
+  <link rel="stylesheet" href="css/style.css?v=7.0">
 </head>
 <body>
   <canvas id="particles-canvas"></canvas>
@@ -307,13 +307,13 @@
       <div class="input-group" style="position: relative;">
         <label for="auth-password">Password</label>
         <input type="password" id="auth-password" placeholder="••••••••" style="padding-right: 40px;">
-        <button type="button" id="btn-toggle-password" style="position: absolute; right: 10px; bottom: 10px; padding: 0; background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--text-muted);" title="Toggle Password Visibility">👁️</button>
+        <button type="button" id="btn-toggle-password" onclick="var p=document.getElementById('auth-password'); p.type = (p.type==='password'?'text':'password');" style="position: absolute; right: 10px; bottom: 10px; padding: 0; background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--text-muted);" title="Toggle Password Visibility">👁️</button>
       </div>
 
       <div class="input-group" id="auth-verify-password-group" style="display:none; position: relative;">
         <label for="auth-verify-password">Verify Password</label>
         <input type="password" id="auth-verify-password" placeholder="••••••••" onpaste="return false;" style="padding-right: 40px;">
-        <button type="button" id="btn-toggle-verify-password" style="position: absolute; right: 10px; bottom: 10px; padding: 0; background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--text-muted);" title="Toggle Password Visibility">👁️</button>
+        <button type="button" id="btn-toggle-verify-password" onclick="var p=document.getElementById('auth-verify-password'); p.type = (p.type==='password'?'text':'password');" style="position: absolute; right: 10px; bottom: 10px; padding: 0; background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--text-muted);" title="Toggle Password Visibility">👁️</button>
       </div>
       
       <div class="input-group" id="auth-name-group" style="display:none;">
@@ -321,11 +321,11 @@
         <input type="text" id="auth-name" placeholder="PPC Master" autocomplete="name">
       </div>
 
-      <button id="btn-auth-submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Sign In</button>
+      <button id="btn-auth-submit" onclick="handleAuthSubmit()" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Sign In</button>
       
       <div style="text-align: center; margin-top: 15px; font-size: 0.9em; color: var(--text-muted);">
         <span id="auth-toggle-text">Need an account?</span> 
-        <a href="#" id="btn-auth-toggle" onclick="toggleAuthMode()" style="color: var(--accent-blue); text-decoration: none;">Register</a>
+        <a href="#" id="btn-auth-toggle" onclick="event.preventDefault(); toggleAuthMode();" onclick="toggleAuthMode()" style="color: var(--accent-blue); text-decoration: none;">Register</a>
       </div>
     </div>
   </div>
@@ -339,8 +339,8 @@
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
 
-  <script src="js/particles.js?v=6.0"></script>
-  <script src="js/questions.js?v=6.0"></script>
-  <script src="js/app.js?v=6.0"></script>
+  <script src="js/particles.js?v=7.0"></script>
+  <script src="js/questions.js?v=7.0"></script>
+  <script src="js/app.js?v=7.0"></script>
 </body>
 </html>
