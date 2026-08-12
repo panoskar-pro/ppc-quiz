@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=4.0">
+  <link rel="stylesheet" href="css/style.css?v=5.0">
 </head>
 <body>
   <canvas id="particles-canvas"></canvas>
@@ -38,7 +38,7 @@
         </div>
 
         <div id="new-profile-section">
-          <button id="btn-show-auth" class="btn btn-primary btn-lg pulse-btn">
+          <button id="btn-show-auth" onclick="showAuthModal()" class="btn btn-primary btn-lg pulse-btn">
             <span class="btn-icon">🔐</span> Login / Register
           </button>
         </div>
@@ -295,7 +295,7 @@
     <div class="modal glass-card">
       <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h2 id="auth-title" style="margin: 0;">Sign In</h2>
-        <button id="btn-close-auth" class="btn btn-ghost btn-sm" style="padding: 5px;">✕</button>
+        <button id="btn-close-auth" onclick="closeAuthModal()" class="btn btn-ghost btn-sm" style="padding: 5px;">✕</button>
       </div>
       
       <div id="auth-error" style="color: var(--accent-red); margin-bottom: 15px; font-size: 0.9rem; text-align: center; display: none;"></div>
@@ -339,8 +339,8 @@
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
 
-  <script src="js/particles.js?v=4.0"></script>
-  <script src="js/questions.js?v=4.0"></script>
-  <script src="js/app.js?v=4.0"></script>
+  <script src="js/particles.js?v=5.0"></script>
+  <script src="js/questions.js?v=5.0"></script>
+  <script src="js/app.js?v=5.0"></script>
 </body>
 </html>
