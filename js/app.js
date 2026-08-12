@@ -573,7 +573,8 @@ function showFeedback(isCorrect, explanation, xp, category, customLink) {
   document.getElementById('feedback-explanation').textContent = explanation;
 
   const linkEl = document.getElementById('feedback-link');
-  const targetUrl = customLink || CATEGORY_LINKS[category] || 'https://support.google.com/google-ads';
+  const targetUrl = customLink || CATEGORY_LINKS[category] || '';
+    if (!targetUrl) { linkEl.style.display = 'none'; } else { linkEl.style.display = ''; }
   linkEl.href = targetUrl;
 
   const xpEl = document.getElementById('feedback-xp');
