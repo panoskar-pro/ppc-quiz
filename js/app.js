@@ -94,20 +94,35 @@ auth.onAuthStateChanged(async (user) => {
       const docRef = db.collection('users').doc(user.uid);
       const docSnap = await docRef.get();
 
-      if (!docSnap.exists) {
-        // Fallback if registered but doc wasn't created
-        await createProfileDoc(user, user.email.split('@')[0]);
-      } else {
+      if (docSnap && docSnap.exists) {
         APP.profile = docSnap.data();
-        await docRef.update({ lastActive: firebase.firestore.FieldValue.serverTimestamp() });
+        try {
+          await docRef.update({ lastActive: firebase.firestore.FieldValue.serverTimestamp() });
+        } catch(e) {}
+      } else {
+        const defaultName = user.displayName || user.email.split('@')[0];
+        await createProfileDoc(user, defaultName);
       }
-
-      closeAuthModal();
-      openDashboard();
     } catch (e) {
-      console.error("Error fetching user data:", e);
-      showToast("Error loading profile", "error");
+      console.warn("Firestore profile load warning:", e);
+      // Fallback profile so user can play immediately even if Firestore has network/permission delay
+      if (!APP.profile) {
+        APP.profile = {
+          uid: user.uid,
+          name: user.displayName || user.email.split('@')[0],
+          email: user.email,
+          totalXP: 0,
+          currentLevel: 1,
+          answeredCount: 0,
+          correctCount: 0,
+          bestStreak: 0,
+          badges: []
+        };
+      }
     }
+
+    closeAuthModal();
+    openDashboard();
   } else {
     APP.user = null;
     APP.profile = null;
