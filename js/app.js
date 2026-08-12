@@ -164,7 +164,8 @@ function toggleAuthMode() {
 }
 
 function showAuthModal() {
-  document.getElementById('modal-auth').style.display = 'flex';
+  const m = document.getElementById('modal-auth');
+  if (m) m.style.display = 'flex';
 }
 
 function closeAuthModal() {
@@ -342,12 +343,13 @@ function renderDashboard() {
   document.getElementById('stat-streak').textContent = p.stats.bestStreak;
   document.getElementById('stat-xp').textContent = p.xp;
 
-  renderLevelGrid();
+  
   renderBadges();
 }
 
 function renderLevelGrid() {
   const grid = document.getElementById('level-grid');
+  if (!grid) return;
   grid.innerHTML = '';
 
   APP.levels.forEach((level) => {
