@@ -49,11 +49,8 @@ const ALLOWED_EMAILS = [
 
 // ============ LEVELS & CATEGORIES ============
 const STATIC_LEVELS = [
-  { level: 1, name: 'Rookie', description: 'Google Ads fundamentals and basic concepts', icon: '🌱', xpRequired: 0, questionsToUnlock: 0, accuracyToUnlock: 0, color: '#4ade80' },
-  { level: 2, name: 'Specialist', description: 'Campaign types, bidding strategies, and keyword match types', icon: '⚡', xpRequired: 100, questionsToUnlock: 8, accuracyToUnlock: 70, color: '#60a5fa' },
-  { level: 3, name: 'Strategist', description: 'Optimization, Quality Score, ad extensions, and audiences', icon: '🎯', xpRequired: 300, questionsToUnlock: 8, accuracyToUnlock: 75, color: '#a78bfa' },
-  { level: 4, name: 'Expert', description: 'Advanced bidding, attribution, scripts, and automation', icon: '🔥', xpRequired: 600, questionsToUnlock: 8, accuracyToUnlock: 80, color: '#f97316' },
-  { level: 5, name: 'Master', description: 'Complex scenarios, cross-platform strategy, and measurement', icon: '👑', xpRequired: 1000, questionsToUnlock: 8, accuracyToUnlock: 85, color: '#eab308' },
+  { level: 1, name: 'Invoicing', description: 'Διαδικασίες τιμολόγησης, PO, εγκρίσεις, billing & reconciliation', icon: '🧾', xpRequired: 0, questionsToUnlock: 0, accuracyToUnlock: 0, color: '#10b981' },
+  { level: 2, name: 'Google Ads', description: 'Search, Shopping, Performance Max, Smart Bidding, Quality Score & Strategy', icon: '🎯', xpRequired: 0, questionsToUnlock: 0, accuracyToUnlock: 0, color: '#3b82f6' }
 ];
 
 const CATEGORY_LINKS = {
@@ -368,21 +365,8 @@ function renderLevelGrid() {
   });
 }
 
-function isLevelUnlocked(level) {
-  if (level === 1) return true;
-  const p = APP.profile;
-
-  const levelDef = APP.levels.find((l) => l.level === level);
-  if (!levelDef) return false;
-  if (p.xp < levelDef.xpRequired) return false;
-
-  const prevLevelKey = `level_${level - 1}`;
-  const prevScore = p.stats.levelScores[prevLevelKey];
-  if (!prevScore) return false;
-
-  const prevLevelDef = APP.levels.find((l) => l.level === level);
-  const requiredAccuracy = prevLevelDef ? prevLevelDef.accuracyToUnlock : 70;
-  return prevScore.bestAccuracy >= requiredAccuracy;
+function isLevelUnlocked(levelDef) {
+  return true;
 }
 
 function renderBadges() {
